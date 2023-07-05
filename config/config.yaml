@@ -1,0 +1,22 @@
+database:
+  url: postgres://root@localhost:26257/shoolcms?sslmode=disable
+  idle_conn_timeout: 8m
+migration:
+  path: internal/constants/query/schemas
+  migrate: false
+server:
+  port: 9000
+  timeout: 30s
+cors:
+  origin:
+    - "*"
+  allow_credentials: true
+  headers:
+    - "*"
+  methods:
+    - GET
+    - POST
+    - PUT
+    - OPTIONS
+    - DELETE
+    - PATCH
