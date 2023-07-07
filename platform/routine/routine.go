@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"loyalty/internal/constant"
-	"loyalty/platform/logger"
-	"loyalty/platform/wait"
+	"schoolcms/internal/constant"
+	"schoolcms/platform/logger"
+	"schoolcms/platform/wait"
 
 	"go.uber.org/zap"
 )

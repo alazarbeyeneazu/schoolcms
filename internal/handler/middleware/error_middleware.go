@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"loyalty/internal/constant/errors"
-	response2 "loyalty/internal/constant/model/response"
+	"schoolcms/internal/constant/errors"
+	response2 "schoolcms/internal/constant/model/response"
 
 	"github.com/joomcode/errorx"
 	"github.com/spf13/viper"

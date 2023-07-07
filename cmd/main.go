@@ -1,6 +1,6 @@
 package main
 
-import "loyalty/initiator"
+import "schoolcms/initiator"
 
 func main() {
 	initiator.Initiate()

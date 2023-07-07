@@ -1,7 +1,7 @@
 migrate-down:
-	- migrate -database cockroachdb://root@localhost:26257/defaultdb?sslmode=disable -path internal/constant/query/schemas -verbose down
+	- migrate -database cockroachdb://root@localhost:26257/schoolcms?sslmode=disable -path internal/constant/query/schemas -verbose down
 migrate-up:
-	- migrate -database cockroachdb://root@localhost:26257/defaultdb?sslmode=disable -path internal/constant/query/schemas -verbose up
+	- migrate -database cockroachdb://root@localhost:26257/schoolcms?sslmode=disable -path internal/constant/query/schemas -verbose up
 migrate-create:
 	- migrate create -ext sql -dir internal/constant/query/schemas -tz "UTC" $(args)
 swagger:

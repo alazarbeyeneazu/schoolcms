@@ -3,9 +3,10 @@ package routing
 import (
 	"context"
 	"fmt"
-	"loyalty/internal/constant"
-	"loyalty/platform/logger"
 	"path"
+	"schoolcms/internal/constant"
+	"schoolcms/internal/constant/state"
+	"schoolcms/platform/logger"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,13 +16,14 @@ type Router struct {
 	Path        string
 	Handler     gin.HandlerFunc
 	Middlewares []gin.HandlerFunc
-	Domain      []constant.Domain
+	Domain      []state.Domain
 }
 
 func RegisterRoute(
 	grp *gin.RouterGroup,
 	routes []Router,
 	zapLogger logger.Logger,
+	authDomains state.AuthDomains,
 ) {
 	for _, route := range routes {
 		for _, domain := range route.Domain {
@@ -29,9 +31,13 @@ func RegisterRoute(
 
 			var endpoint string
 
-			switch domain {
-			case constant.Client:
-				endpoint = path.Join(string(constant.Client), route.Path)
+			switch domain.Name {
+			case authDomains.System.Name:
+				endpoint = path.Join(string(constant.System), route.Path)
+			case authDomains.Corporate.Name:
+				endpoint = path.Join(string(constant.Corporate), route.Path)
+			case authDomains.User.Name:
+				endpoint = path.Join(string(constant.User), route.Path)
 
 			default:
 				zapLogger.Fatal(context.Background(), fmt.Sprintf("Invalid Domain %s Registered on Route", domain))

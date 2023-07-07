@@ -1,5 +1,5 @@
 database:
-  url: postgres://root@localhost:26257/shoolcms?sslmode=disable
+  url: postgres://root@localhost:26257/schoolcms?sslmode=disable
   idle_conn_timeout: 8m
 migration:
   path: internal/constants/query/schemas
@@ -7,6 +7,12 @@ migration:
 server:
   port: 9000
   timeout: 30s
+service:
+  authorization:
+    domain:
+      system: 3eeca3ef-5db9-4d9c-bc45-858633edbcf8
+      corporate: b2cbecb9-2abd-4cc0-8622-3ea5e57a29d0
+      user: f7f82b57-2cbf-4e29-b98d-779a3150aebc
 cors:
   origin:
     - "*"

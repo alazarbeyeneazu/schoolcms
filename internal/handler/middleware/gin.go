@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"loyalty/platform/logger"
+	"schoolcms/platform/logger"
 	"time"
 
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package initiator
 
 import (
-	"loyalty/platform/utils"
 	"net/http"
+	"schoolcms/platform/utils"
 	"strings"
 
 	"github.com/gin-gonic/gin"

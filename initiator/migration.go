@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"loyalty/platform/logger"
+	"schoolcms/platform/logger"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/cockroachdb" // go-migrate needs it
