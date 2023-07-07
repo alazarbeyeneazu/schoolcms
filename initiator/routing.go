@@ -2,6 +2,7 @@ package initiator
 
 import (
 	"schoolcms/internal/constant/state"
+	"schoolcms/internal/glue/school"
 	"schoolcms/internal/glue/user"
 	"schoolcms/platform/logger"
 
@@ -16,4 +17,6 @@ func InitRouter(
 	authDomains state.AuthDomains,
 ) {
 	user.InitRoute(group, handler.User, log.Named("user route"), authDomains)
+	school.InitRoute(group, handler.School, log.Named("school route"), authDomains)
+
 }
