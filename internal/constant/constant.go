@@ -2,8 +2,10 @@ package constant
 
 type Domain string
 
-var (
-	Client Domain = "client"
+const (
+	Corporate Domain = "corporate"
+	User      Domain = "user"
+	System    Domain = "system"
 )
 
 type ContextKey any
