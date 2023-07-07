@@ -60,6 +60,7 @@ type School struct {
 	ID        uuid.UUID
 	Name      string
 	Logo      sql.NullString
+	Status    NullStatus
 	CreatedAt sql.NullString
 	UpdatedAt sql.NullString
 	DeletedAt sql.NullString

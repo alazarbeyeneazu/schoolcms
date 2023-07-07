@@ -45,6 +45,6 @@ func (u *user) CreatUser(c *gin.Context) {
 		_ = c.Error(err)
 		return
 	}
-	userDetail.ID = uuid.New()
+	userDetail.ID = uuid.Nil
 	response.SendSuccessResponse(c, http.StatusOK, userDetail, nil)
 }

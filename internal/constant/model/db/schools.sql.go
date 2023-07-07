@@ -12,7 +12,7 @@ import (
 
 const createSchool = `-- name: CreateSchool :one
 INSERT INTO schools (name,logo) VALUES ($1,$2)
-RETURNING id, name, logo, created_at, updated_at, deleted_at
+RETURNING id, name, logo, status, created_at, updated_at, deleted_at
 `
 
 type CreateSchoolParams struct {
@@ -27,6 +27,7 @@ func (q *Queries) CreateSchool(ctx context.Context, arg CreateSchoolParams) (Sch
 		&i.ID,
 		&i.Name,
 		&i.Logo,
+		&i.Status,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.DeletedAt,

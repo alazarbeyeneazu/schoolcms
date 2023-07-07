@@ -1,14 +1,17 @@
 package dto
 
 import (
+	"schoolcms/internal/constant/model/db"
+
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/google/uuid"
 )
 
 type School struct {
-	ID   uuid.UUID `json:"id"`
-	Name string    `json:"name"`
-	Log  string    `json:"logo"`
+	ID     uuid.UUID `json:"id"`
+	Name   string    `json:"name"`
+	Status db.Status `json:"status"`
+	Log    string    `json:"logo"`
 }
 
 func (s School) ValidateSchool() error {
