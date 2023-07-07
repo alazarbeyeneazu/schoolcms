@@ -7,3 +7,7 @@ import (
 type User interface {
 	CreatUser(c *gin.Context)
 }
+
+type School interface {
+	CreateSchool(c *gin.Context)
+}
