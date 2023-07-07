@@ -58,7 +58,7 @@ func (ns NullStatus) Value() (driver.Value, error) {
 
 type School struct {
 	ID        uuid.UUID
-	Name      sql.NullString
+	Name      string
 	Logo      sql.NullString
 	CreatedAt sql.NullString
 	UpdatedAt sql.NullString

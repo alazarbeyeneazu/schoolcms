@@ -1,6 +1,6 @@
 CREATE TABLE schools (
     id UUID DEFAULT gen_random_uuid(),
-    name VARCHAR,
+    name VARCHAR NOT NULL,
     logo VARCHAR,
     created_at VARCHAR,
     updated_at VARCHAR,

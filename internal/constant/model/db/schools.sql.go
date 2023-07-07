@@ -16,7 +16,7 @@ RETURNING id, name, logo, created_at, updated_at, deleted_at
 `
 
 type CreateSchoolParams struct {
-	Name sql.NullString
+	Name string
 	Logo sql.NullString
 }
 
