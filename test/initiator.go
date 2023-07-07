@@ -7,12 +7,12 @@ import (
 	"os"
 	"strings"
 
-	"loyalty/initiator"
+	"schoolcms/initiator"
 
-	persistencedb "loyalty/internal/constant/persistenceDB"
-	"loyalty/internal/handler/middleware"
-	"loyalty/platform/logger"
-	"loyalty/platform/utils"
+	persistencedb "schoolcms/internal/constant/persistenceDB"
+	"schoolcms/internal/handler/middleware"
+	"schoolcms/platform/logger"
+	"schoolcms/platform/utils"
 
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
@@ -153,7 +153,7 @@ func Initiate(path string) (Instance, func() error) {
 	log.Info(context.Background(), "module initialized")
 
 	log.Info(context.Background(), "initializing handler")
-	handler := initiator.InitHandler(module, log, viper.GetDuration("server.timeout"))
+	handler := initiator.InitHandler(context.Background(), module, log, viper.GetDuration("server.timeout"))
 	log.Info(context.Background(), "handler initialized")
 
 	log.Info(context.Background(), "initializing server")
@@ -165,8 +165,9 @@ func Initiate(path string) (Instance, func() error) {
 	log.Info(context.Background(), "server initialized")
 
 	log.Info(context.Background(), "initializing router")
-	v2 := server.Group("/v2")
-	initiator.InitRouter(v2, handler, module, log)
+	v1 := server.Group("/v1")
+	state := initiator.InitState(log.Named("state"))
+	initiator.InitRouter(v1, handler, module, log, state.AuthDomains)
 	log.Info(context.Background(), "router initialized")
 
 	return Instance{
