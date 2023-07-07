@@ -4,7 +4,7 @@ CREATE TABLE users
   first_name  VARCHAR  ,
   middle_name VARCHAR  ,
   last_name   VARCHAR  ,
-  phone  VARCHAR  NULL,
+  phone  VARCHAR  NULL UNIQUE,
   profile     VARCHAR  ,
   status status NOT NULL,
   created_at  TIMESTAMP NOT NULL DEFAULT now(),
