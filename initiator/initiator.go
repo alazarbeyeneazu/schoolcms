@@ -8,11 +8,11 @@ import (
 	"os/signal"
 	"syscall"
 
-	persistencedb "loyalty/internal/constant/persistenceDB"
-	"loyalty/internal/handler/middleware"
-	"loyalty/platform/logger"
-	"loyalty/platform/routine"
-	"loyalty/platform/wait"
+	persistencedb "schoolcms/internal/constant/persistenceDB"
+	"schoolcms/internal/handler/middleware"
+	"schoolcms/platform/logger"
+	"schoolcms/platform/routine"
+	"schoolcms/platform/wait"
 
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
@@ -62,7 +62,7 @@ func Initiate() {
 	log.Info(context.Background(), "module initialized")
 
 	log.Info(context.Background(), "initializing handler")
-	handler := InitHandler(module, log, viper.GetDuration("server.timeout"))
+	handler := InitHandler(context.Background(), module, log, viper.GetDuration("server.timeout"))
 	log.Info(context.Background(), "handler initialized")
 
 	log.Info(context.Background(), "initializing server")
@@ -77,8 +77,8 @@ func Initiate() {
 	log.Info(context.Background(), "server initialized")
 
 	log.Info(context.Background(), "initializing router")
-
-	InitRouter(server.Group("/api/v1"), handler, module, log)
+	state := InitState(log.Named("state"))
+	InitRouter(server.Group("/api/v1"), handler, module, log, state.AuthDomains)
 	log.Info(context.Background(), "router initialized")
 	srv := &http.Server{
 		Addr:              viper.GetString("server.host") + ":" + viper.GetString("server.port"),

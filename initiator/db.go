@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"loyalty/platform/logger"
+	"schoolcms/platform/logger"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/spf13/viper"
