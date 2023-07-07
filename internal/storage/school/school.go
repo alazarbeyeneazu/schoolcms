@@ -26,8 +26,9 @@ func Init(db persistencedb.PersistenceDB, log logger.Logger) storage.School {
 }
 func (s *school) CreateSchool(ctx context.Context, sc dto.School) (dto.School, error) {
 	scl, err := s.db.CreateSchool(ctx, db.CreateSchoolParams{
-		Name: sc.Name,
-		Logo: sql.NullString{String: sc.Log, Valid: true},
+		Name:  sc.Name,
+		Phone: sc.Phone,
+		Logo:  sql.NullString{String: sc.Log, Valid: true},
 	})
 
 	if err != nil {
@@ -36,8 +37,9 @@ func (s *school) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 		return dto.School{}, err
 	}
 	return dto.School{
-		ID:   scl.ID,
-		Name: scl.Name,
-		Log:  scl.Logo.String,
+		ID:    scl.ID,
+		Name:  scl.Name,
+		Phone: scl.Phone,
+		Log:   scl.Logo.String,
 	}, nil
 }
