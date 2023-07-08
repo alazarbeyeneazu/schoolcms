@@ -67,11 +67,22 @@ type School struct {
 	DeletedAt sql.NullString
 }
 
+type Teacher struct {
+	ID        uuid.UUID
+	UserID    uuid.UUID
+	Title     string
+	Status    NullStatus
+	CreatedAt time.Time
+	UpdatedAt sql.NullTime
+	DeletedAt sql.NullTime
+}
+
 type User struct {
 	ID         uuid.UUID
 	FirstName  sql.NullString
 	MiddleName sql.NullString
 	LastName   sql.NullString
+	Gender     string
 	Phone      sql.NullString
 	Profile    sql.NullString
 	Status     Status

@@ -4,6 +4,7 @@ CREATE TABLE users
   first_name  VARCHAR  ,
   middle_name VARCHAR  ,
   last_name   VARCHAR  ,
+  gender VARCHAR NOT NULL,
   phone  VARCHAR  NULL UNIQUE,
   profile     VARCHAR  ,
   status status NOT NULL,

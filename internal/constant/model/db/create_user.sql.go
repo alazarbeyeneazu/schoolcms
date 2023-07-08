@@ -13,7 +13,7 @@ import (
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (first_name,middle_name,last_name,phone,profile,status) 
 VALUES ($1,$2,$3,$4,$5,$6)
-RETURNING id, first_name, middle_name, last_name, phone, profile, status, created_at, updated_at, deleted_at
+RETURNING id, first_name, middle_name, last_name, gender, phone, profile, status, created_at, updated_at, deleted_at
 `
 
 type CreateUserParams struct {
@@ -40,6 +40,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.FirstName,
 		&i.MiddleName,
 		&i.LastName,
+		&i.Gender,
 		&i.Phone,
 		&i.Profile,
 		&i.Status,
