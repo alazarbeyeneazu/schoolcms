@@ -20,7 +20,7 @@ RETURNING id, user_id, title, status, created_at, updated_at, deleted_at
 type CreateTechersParams struct {
 	UserID uuid.UUID
 	Title  string
-	Status NullStatus
+	Status Status
 }
 
 func (q *Queries) CreateTechers(ctx context.Context, arg CreateTechersParams) (Teacher, error) {

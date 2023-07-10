@@ -71,7 +71,7 @@ type Teacher struct {
 	ID        uuid.UUID
 	UserID    uuid.UUID
 	Title     string
-	Status    NullStatus
+	Status    Status
 	CreatedAt time.Time
 	UpdatedAt sql.NullTime
 	DeletedAt sql.NullTime
