@@ -11,3 +11,7 @@ type User interface {
 type School interface {
 	CreateSchool(c *gin.Context)
 }
+
+type Teacher interface {
+	CreateTeacher(c *gin.Context)
+}

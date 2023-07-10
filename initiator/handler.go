@@ -4,19 +4,22 @@ import (
 	"context"
 	"schoolcms/internal/handler/rest"
 	"schoolcms/internal/handler/rest/school"
+	"schoolcms/internal/handler/rest/teacher"
 	"schoolcms/internal/handler/rest/user"
 	"schoolcms/platform/logger"
 	"time"
 )
 
 type Handler struct {
-	User   rest.User
-	School rest.School
+	User    rest.User
+	School  rest.School
+	Teacher rest.Teacher
 }
 
 func InitHandler(ctx context.Context, module Module, log logger.Logger, timeout time.Duration) Handler {
 	return Handler{
-		User:   user.Init(ctx, module.User, log.Named("user handler"), timeout),
-		School: school.Init(ctx, module.School, log.Named("school handler"), timeout),
+		User:    user.Init(ctx, module.User, log.Named("user handler"), timeout),
+		School:  school.Init(ctx, module.School, log.Named("school handler"), timeout),
+		Teacher: teacher.Init(ctx, module.Teacher, log.Named("teacher handler"), timeout),
 	}
 }
