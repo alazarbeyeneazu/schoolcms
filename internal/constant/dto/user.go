@@ -16,6 +16,7 @@ type User struct {
 	MiddleName string    `json:"middleName"`
 	LastName   string    `json:"lastName"`
 	Phone      string    `json:"phone"`
+	Gender     string    `json:"gender"`
 	Profile    string    `json:"profile"`
 	Status     db.Status `json:"status"`
 }
@@ -35,6 +36,7 @@ func (u User) ValidateUser() error {
 			}
 			return nil
 		})),
+		validation.Field(&u.Gender, validation.Required.Error("gender required")),
 	)
 
 }

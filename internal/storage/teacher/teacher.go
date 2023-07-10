@@ -28,11 +28,12 @@ func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teache
 	teacher, err := t.db.Queries.CreateTechers(ctx, db.CreateTechersParams{
 		UserID: tc.UserId,
 		Title:  tc.Title,
-		Status: tc.Status,
+		Status: db.StatusACTIVE,
 	})
 	if err != nil {
 		err = errors.ErrWriteError.Wrap(err, "unable to register teacher")
 		t.log.Error(ctx, "unable to register teacher", zap.Error(err), zap.Any("teacher ", tc))
+		return dto.Teacher{}, err
 	}
 
 	return dto.Teacher{

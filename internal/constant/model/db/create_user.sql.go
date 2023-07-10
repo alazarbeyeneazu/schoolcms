@@ -11,8 +11,8 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (first_name,middle_name,last_name,phone,profile,status) 
-VALUES ($1,$2,$3,$4,$5,$6)
+INSERT INTO users (first_name,middle_name,last_name,phone,gender,profile,status) 
+VALUES ($1,$2,$3,$4,$5,$6,$7)
 RETURNING id, first_name, middle_name, last_name, gender, phone, profile, status, created_at, updated_at, deleted_at
 `
 
@@ -21,6 +21,7 @@ type CreateUserParams struct {
 	MiddleName sql.NullString
 	LastName   sql.NullString
 	Phone      sql.NullString
+	Gender     string
 	Profile    sql.NullString
 	Status     Status
 }
@@ -31,6 +32,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		arg.MiddleName,
 		arg.LastName,
 		arg.Phone,
+		arg.Gender,
 		arg.Profile,
 		arg.Status,
 	)

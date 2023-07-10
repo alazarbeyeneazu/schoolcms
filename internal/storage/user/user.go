@@ -31,6 +31,7 @@ func (u *user) CreateUser(ctx context.Context, ur dto.User) (dto.User, error) {
 		MiddleName: sql.NullString{String: ur.MiddleName, Valid: true},
 		LastName:   sql.NullString{String: ur.LastName, Valid: true},
 		Phone:      sql.NullString{String: ur.Phone, Valid: true},
+		Gender:     ur.Gender,
 		Profile:    sql.NullString{String: ur.Profile, Valid: true},
 		Status:     ur.Status,
 	})
@@ -45,6 +46,7 @@ func (u *user) CreateUser(ctx context.Context, ur dto.User) (dto.User, error) {
 		MiddleName: usr.MiddleName.String,
 		LastName:   usr.LastName.String,
 		Phone:      usr.Phone.String,
+		Gender:     usr.Gender,
 		Profile:    usr.Profile.String,
 		Status:     usr.Status,
 	}, nil
