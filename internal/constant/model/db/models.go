@@ -56,6 +56,16 @@ func (ns NullStatus) Value() (driver.Value, error) {
 	return string(ns.Status), nil
 }
 
+type Grade struct {
+	ID        uuid.UUID
+	Name      string
+	SchoolID  uuid.UUID
+	Status    Status
+	CreatedAt time.Time
+	UpdatedAt sql.NullTime
+	DeletedAt sql.NullTime
+}
+
 type School struct {
 	ID        uuid.UUID
 	Name      string
