@@ -10,3 +10,8 @@ CREATE TABLE school_teachers
   deleted_at TIMESTAMP,
   PRIMARY KEY (id)
 );
+
+ALTER TABLE school_teachers
+  ADD CONSTRAINT FK_teachers_TO_school_teachers
+    FOREIGN KEY (teacher_id)
+    REFERENCES teachers (id);

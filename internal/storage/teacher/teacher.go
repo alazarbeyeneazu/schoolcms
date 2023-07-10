@@ -43,3 +43,26 @@ func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teache
 		Status: teacher.Status,
 	}, nil
 }
+
+func (t *teacher) AssignTeacherToSchool(ctx context.Context, tToS dto.TeacherToSchool) (dto.TeacherToSchool, error) {
+	assignedTeacher, err := t.db.Queries.AssignTeachersToSchool(ctx, db.AssignTeachersToSchoolParams{
+		SchoolID:  tToS.SchoolId,
+		TeacherID: tToS.TeacherId,
+		Subject:   tToS.Subject,
+		Status:    tToS.Status,
+	})
+	if err != nil {
+		err = errors.ErrWriteError.Wrap(err, "error while assign teacher ")
+
+		t.log.Error(ctx, "error while assign teacher", zap.Error(err), zap.Any("teacher assign", tToS))
+		return dto.TeacherToSchool{}, err
+
+	}
+	return dto.TeacherToSchool{
+		ID:        assignedTeacher.ID,
+		TeacherId: assignedTeacher.TeacherID,
+		SchoolId:  assignedTeacher.TeacherID,
+		Subject:   assignedTeacher.Subject,
+		Status:    assignedTeacher.Status,
+	}, nil
+}
