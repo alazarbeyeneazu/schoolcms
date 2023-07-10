@@ -1,1 +1,1 @@
-DROP DATABASE teachers;
+DROP TABLE teachers;
