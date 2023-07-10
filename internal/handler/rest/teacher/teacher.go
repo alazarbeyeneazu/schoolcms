@@ -48,3 +48,21 @@ func (t *teacher) CreateTeacher(c *gin.Context) {
 	response.SendSuccessResponse(c, http.StatusCreated, teacher, nil)
 
 }
+func (t *teacher) AssignTeachersToSchool(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, t.ContextTimeOut)
+	defer cancel()
+	var asignT dto.TeacherToSchool
+	if err := c.ShouldBind(&asignT); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "invalid input")
+		t.log.Error(c, "unable to bind user input to dto.TeacherTo ", zap.Error(err))
+		_ = c.Error(err)
+		return
+	}
+	resp, err := t.TeacherModule.AssignTeachersToSchool(ctx, asignT)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	resp.ID = uuid.Nil
+	response.SendSuccessResponse(c, http.StatusCreated, resp, nil)
+}

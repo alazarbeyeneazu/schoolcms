@@ -32,3 +32,13 @@ func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teache
 
 	return t.teacherPersistant.CreateTeacher(ctx, tc)
 }
+
+func (t *teacher) AssignTeachersToSchool(ctx context.Context, tc dto.TeacherToSchool) (dto.TeacherToSchool, error) {
+	if err := tc.VlidateAssignTeacher(); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "validation error")
+		t.log.Error(ctx, "error while validating teacher to dto.TeacherToSchool ", zap.Error(err), zap.Any("teacher ", tc))
+		return dto.TeacherToSchool{}, err
+	}
+
+	return t.teacherPersistant.AssignTeacherToSchool(ctx, tc)
+}

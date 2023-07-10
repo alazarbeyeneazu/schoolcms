@@ -1,1 +1,1 @@
-DROP DATABASE schools;
+DROP table schools;

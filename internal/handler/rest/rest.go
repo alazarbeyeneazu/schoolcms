@@ -14,4 +14,5 @@ type School interface {
 
 type Teacher interface {
 	CreateTeacher(c *gin.Context)
+	AssignTeachersToSchool(c *gin.Context)
 }
