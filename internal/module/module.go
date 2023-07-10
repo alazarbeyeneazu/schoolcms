@@ -15,4 +15,5 @@ type School interface {
 
 type Teacher interface {
 	CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teacher, error)
+	AssignTeachersToSchool(ctx context.Context, tc dto.TeacherToSchool) (dto.TeacherToSchool, error)
 }
