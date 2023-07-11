@@ -11,6 +11,40 @@ import (
 	"github.com/google/uuid"
 )
 
+const assignStudent = `-- name: AssignStudent :one
+INSERT INTO school_students(user_id,school_id,grade_id,status)
+VALUES ($1,$2,$3,$4)
+RETURNING id, user_id, school_id, grade_id, status, created_at, updated_at, deleted_at
+`
+
+type AssignStudentParams struct {
+	UserID   uuid.UUID
+	SchoolID uuid.UUID
+	GradeID  uuid.UUID
+	Status   Status
+}
+
+func (q *Queries) AssignStudent(ctx context.Context, arg AssignStudentParams) (SchoolStudent, error) {
+	row := q.db.QueryRow(ctx, assignStudent,
+		arg.UserID,
+		arg.SchoolID,
+		arg.GradeID,
+		arg.Status,
+	)
+	var i SchoolStudent
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.SchoolID,
+		&i.GradeID,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return i, err
+}
+
 const createStudent = `-- name: CreateStudent :one
 INSERT INTO students (user_id,status)
 VALUES ($1,$2) RETURNING id, user_id, status, created_at, updated_at, deleted_at
