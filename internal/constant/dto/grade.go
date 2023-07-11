@@ -26,6 +26,6 @@ func (g Grade) ValidateGrade() error {
 			}
 			return nil
 		},
-		)),
+		), validation.Required.Error("school_id required")),
 	)
 }

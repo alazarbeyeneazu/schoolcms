@@ -4,6 +4,7 @@ import (
 	"context"
 	"schoolcms/internal/constant/dto"
 	"schoolcms/internal/constant/errors"
+	"schoolcms/internal/constant/model/db"
 	"schoolcms/internal/module"
 	"schoolcms/internal/storage"
 	"schoolcms/platform/logger"
@@ -29,5 +30,6 @@ func (g *grade) CreateGrade(ctx context.Context, grd dto.Grade) (dto.Grade, erro
 		g.log.Error(ctx, "error while validating grade", zap.Error(err), zap.Any("grade", grd))
 		return dto.Grade{}, err
 	}
+	grd.Status = db.StatusACTIVE
 	return g.gradePersistant.CreateGrade(ctx, grd)
 }

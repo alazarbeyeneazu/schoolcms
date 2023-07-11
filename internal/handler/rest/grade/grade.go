@@ -23,7 +23,11 @@ type grade struct {
 }
 
 func Init(ctx context.Context, gradeModule module.Grade, timeout time.Duration, log logger.Logger) rest.Grade {
-	return &grade{}
+	return &grade{
+		log:            log,
+		gradeModule:    gradeModule,
+		contextTimeOut: timeout,
+	}
 }
 func (g *grade) CreateGrade(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, g.contextTimeOut)
@@ -31,7 +35,8 @@ func (g *grade) CreateGrade(c *gin.Context) {
 	var grd dto.Grade
 	if err := c.ShouldBind(&grd); err != nil {
 		err = errors.ErrValidationError.Wrap(err, "error while binding user input to dto.Grade")
-		g.log.Error(c, "error while validating user input to dto.Grade", zap.Error(err))
+		g.log.Error(ctx, "error while validating user input to dto.Grade", zap.Error(err))
+		_ = c.Error(err)
 		return
 	}
 	grad, err := g.gradeModule.CreateGrade(ctx, grd)
