@@ -21,3 +21,7 @@ type Teacher interface {
 type Grade interface {
 	CreateGrade(ctx context.Context, grd dto.Grade) (dto.Grade, error)
 }
+
+type Student interface {
+	CreateStudent(ctx context.Context, std dto.Student) (dto.Student, error)
+}
