@@ -11,6 +11,7 @@ type User interface {
 
 type School interface {
 	CreateSchool(ctx context.Context, sc dto.School) (dto.School, error)
+	AssignStudentToSchool(ctx context.Context, std dto.StudentToSchool) (dto.StudentToSchool, error)
 }
 
 type Teacher interface {

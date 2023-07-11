@@ -3,6 +3,7 @@ package dto
 import (
 	"fmt"
 	"schoolcms/internal/constant/model/db"
+	"time"
 
 	"github.com/dongri/phonenumber"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
@@ -29,4 +30,13 @@ func (s School) ValidateSchool() error {
 			return nil
 		})),
 	)
+}
+
+type StudentToSchool struct {
+	ID        uuid.UUID `json:"id"`
+	StudentId uuid.UUID `json:"student_id"`
+	SchoolId  uuid.UUID `json:"school_id"`
+	GradeId   uuid.UUID `json:"grade_id"`
+	Status    db.Status `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
 }

@@ -1,7 +1,7 @@
 CREATE TABLE school_students
 (
   id UUID DEFAULT gen_random_uuid(),
-  user_id    UUID   NOT NULL ,
+  student_id    UUID   NOT NULL ,
   school_id UUID NOT NULL,
   grade_id UUID NOT NULL,
   status status NOT NULL,
@@ -12,9 +12,9 @@ CREATE TABLE school_students
 );
 
 ALTER TABLE school_students
-  ADD CONSTRAINT FK_user_To_school_students
-    FOREIGN KEY (user_id)
-    REFERENCES users (id);
+  ADD CONSTRAINT FK_students_To_school_students
+    FOREIGN KEY (student_id)
+    REFERENCES students (id);
 ALTER TABLE school_students
   ADD CONSTRAINT FK_school_To_school_students
     FOREIGN KEY (school_id)

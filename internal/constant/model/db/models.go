@@ -79,7 +79,7 @@ type School struct {
 
 type SchoolStudent struct {
 	ID        uuid.UUID
-	UserID    uuid.UUID
+	StudentID uuid.UUID
 	SchoolID  uuid.UUID
 	GradeID   uuid.UUID
 	Status    Status
