@@ -16,7 +16,7 @@ type Student struct {
 	CreatdAt time.Time `json:"created_at"`
 }
 
-func (s *Student) ValidateStudent() error {
+func (s Student) ValidateStudent() error {
 	return validation.ValidateStruct(&s, validation.Field(&s.UserId, validation.By(func(value interface{}) error {
 		if s.UserId == uuid.Nil {
 			return fmt.Errorf("user id required")

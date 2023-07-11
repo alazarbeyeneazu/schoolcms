@@ -1,7 +1,7 @@
 CREATE TABLE students
 (
   id UUID DEFAULT gen_random_uuid(),
-  user_id    UUID   NOT NULL,
+  user_id    UUID   NOT NULL UNIQUE,
   status status NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT now(),
   updated_at TIMESTAMP,
