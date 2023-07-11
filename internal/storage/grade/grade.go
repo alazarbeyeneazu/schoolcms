@@ -17,7 +17,7 @@ type grade struct {
 	log logger.Logger
 }
 
-func Init(ctx context.Context, db persistencedb.PersistenceDB, log logger.Logger) storage.Grade {
+func Init(db persistencedb.PersistenceDB, log logger.Logger) storage.Grade {
 	return &grade{
 		log: log,
 		db:  db,
