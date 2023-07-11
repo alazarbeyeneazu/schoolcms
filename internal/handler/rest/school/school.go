@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -47,4 +48,23 @@ func (s *school) CreateSchool(c *gin.Context) {
 	}
 
 	response.SendSuccessResponse(c, http.StatusCreated, schoolDetail, nil)
+}
+
+func (s *school) AssignStudentToSchool(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, s.contextTimeout)
+	defer cancel()
+	var sToS dto.StudentToSchool
+	if err := c.ShouldBind(&sToS); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while binding user input to dto.StudentToSchool")
+		s.log.Error(ctx, "error while binding user input to dto.StudentToSchool", zap.Error(err))
+		_ = c.Error(err)
+		return
+	}
+	assignedStudent, err := s.schoolModule.AssignStudentToSchool(ctx, sToS)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	assignedStudent.ID = uuid.Nil
+	response.SendSuccessResponse(c, http.StatusCreated, assignedStudent, nil)
 }
