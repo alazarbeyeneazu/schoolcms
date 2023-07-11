@@ -43,3 +43,25 @@ func (s *school) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 		Log:   scl.Logo.String,
 	}, nil
 }
+
+func (s *school) AssignStudentToSchool(ctx context.Context, std dto.StudentToSchool) (dto.StudentToSchool, error) {
+	assignedStd, err := s.db.Queries.AssignStudent(ctx, db.AssignStudentParams{
+		StudentID: std.StudentId,
+		SchoolID:  std.SchoolId,
+		GradeID:   std.GradeId,
+		Status:    std.Status,
+	})
+	if err != nil {
+		err = errors.ErrWriteError.Wrap(err, "error while assign student to school")
+		s.log.Error(ctx, "error while writting to database", zap.Error(err), zap.Any("student", std))
+		return dto.StudentToSchool{}, nil
+	}
+	return dto.StudentToSchool{
+		ID:        assignedStd.ID,
+		StudentId: assignedStd.StudentID,
+		SchoolId:  assignedStd.SchoolID,
+		GradeId:   assignedStd.GradeID,
+		Status:    assignedStd.Status,
+		CreatedAt: assignedStd.CreatedAt,
+	}, nil
+}
