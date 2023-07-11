@@ -3,6 +3,7 @@ package dto
 import (
 	"fmt"
 	"schoolcms/internal/constant/model/db"
+	"schoolcms/platform/utils"
 	"time"
 
 	"github.com/dongri/phonenumber"
@@ -39,4 +40,12 @@ type StudentToSchool struct {
 	GradeId   uuid.UUID `json:"grade_id"`
 	Status    db.Status `json:"status"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+func (s *StudentToSchool) ValidateStudentToSchool() error {
+	return validation.ValidateStruct(&s,
+		validation.Field(&s.StudentId, validation.By(utils.CheckForNullUUID("student id required"))),
+		validation.Field(&s.SchoolId, validation.By(utils.CheckForNullUUID("school id required"))),
+		validation.Field(&s.GradeId, validation.By(utils.CheckForNullUUID("grade id required"))),
+	)
 }

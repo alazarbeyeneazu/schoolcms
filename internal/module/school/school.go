@@ -32,3 +32,13 @@ func (s *School) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 
 	return s.schoolPersistance.CreateSchool(ctx, sc)
 }
+
+func (s *School) AssignStudentToSchool(ctx context.Context, sc dto.StudentToSchool) (dto.StudentToSchool, error) {
+	if err := sc.ValidateStudentToSchool(); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating student ")
+		s.log.Error(ctx, "error while validating user ", zap.Error(err), zap.Any("student", sc))
+		return dto.StudentToSchool{}, err
+	}
+
+	return s.schoolPersistance.AssignStudentToSchool(ctx, sc)
+}
