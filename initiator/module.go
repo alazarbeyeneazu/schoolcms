@@ -5,6 +5,7 @@ import (
 	"schoolcms/internal/module"
 	"schoolcms/internal/module/grade"
 	"schoolcms/internal/module/school"
+	"schoolcms/internal/module/student"
 	"schoolcms/internal/module/teacher"
 	"schoolcms/internal/module/user"
 
@@ -16,6 +17,7 @@ type Module struct {
 	School  module.School
 	Teacher module.Teacher
 	Grade   module.Grade
+	Student module.Student
 }
 
 func InitModule(persistence Persistence,
@@ -26,5 +28,6 @@ func InitModule(persistence Persistence,
 		School:  school.Init(persistence.School, log.Named("school module")),
 		Teacher: teacher.Init(log.Named("teacher module"), persistence.Teacher),
 		Grade:   grade.Init(context.Background(), persistence.Grade, log.Named("grade module")),
+		Student: student.Init(persistence.Student, log.Named("student persistant")),
 	}
 }
