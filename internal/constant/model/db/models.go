@@ -88,6 +88,15 @@ type SchoolTeacher struct {
 	DeletedAt sql.NullTime
 }
 
+type Student struct {
+	ID        uuid.UUID
+	UserID    uuid.UUID
+	Status    Status
+	CreatedAt time.Time
+	UpdatedAt sql.NullTime
+	DeletedAt sql.NullTime
+}
+
 type Teacher struct {
 	ID        uuid.UUID
 	UserID    uuid.UUID
