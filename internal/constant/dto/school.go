@@ -42,7 +42,7 @@ type StudentToSchool struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-func (s *StudentToSchool) ValidateStudentToSchool() error {
+func (s StudentToSchool) ValidateStudentToSchool() error {
 	return validation.ValidateStruct(&s,
 		validation.Field(&s.StudentId, validation.By(utils.CheckForNullUUID("student id required"))),
 		validation.Field(&s.SchoolId, validation.By(utils.CheckForNullUUID("school id required"))),
