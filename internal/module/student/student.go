@@ -11,13 +11,13 @@ import (
 
 type student struct {
 	log               logger.Logger
-	studentPersistant storage.Student
+	studentpersistent storage.Student
 }
 
 func Init(std storage.Student, log logger.Logger) storage.Student {
 	return &student{
 		log:               log,
-		studentPersistant: std,
+		studentpersistent: std,
 	}
 }
 
@@ -29,5 +29,5 @@ func (s *student) CreateStudent(ctx context.Context, std dto.Student) (dto.Stude
 	}
 	std.Status = db.StatusACTIVE
 
-	return s.studentPersistant.CreateStudent(ctx, std)
+	return s.studentpersistent.CreateStudent(ctx, std)
 }

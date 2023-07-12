@@ -13,13 +13,13 @@ import (
 
 type teacher struct {
 	log               logger.Logger
-	teacherPersistant storage.Teacher
+	teacherpersistent storage.Teacher
 }
 
-func Init(log logger.Logger, teacherPersistant storage.Teacher) module.Teacher {
+func Init(log logger.Logger, teacherpersistent storage.Teacher) module.Teacher {
 	return &teacher{
 		log:               log,
-		teacherPersistant: teacherPersistant,
+		teacherpersistent: teacherpersistent,
 	}
 }
 
@@ -30,7 +30,7 @@ func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teache
 		return dto.Teacher{}, err
 	}
 
-	return t.teacherPersistant.CreateTeacher(ctx, tc)
+	return t.teacherpersistent.CreateTeacher(ctx, tc)
 }
 
 func (t *teacher) AssignTeachersToSchool(ctx context.Context, tc dto.TeacherToSchool) (dto.TeacherToSchool, error) {
@@ -40,5 +40,5 @@ func (t *teacher) AssignTeachersToSchool(ctx context.Context, tc dto.TeacherToSc
 		return dto.TeacherToSchool{}, err
 	}
 
-	return t.teacherPersistant.AssignTeacherToSchool(ctx, tc)
+	return t.teacherpersistent.AssignTeacherToSchool(ctx, tc)
 }

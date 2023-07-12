@@ -22,7 +22,7 @@ type grade struct {
 	contextTimeOut time.Duration
 }
 
-func Init(ctx context.Context, gradeModule module.Grade, timeout time.Duration, log logger.Logger) rest.Grade {
+func Init(gradeModule module.Grade, timeout time.Duration, log logger.Logger) rest.Grade {
 	return &grade{
 		log:            log,
 		gradeModule:    gradeModule,

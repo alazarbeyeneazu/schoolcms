@@ -11,7 +11,7 @@ import (
 
 type Grade struct {
 	ID        uuid.UUID `json:"id"`
-	SchoolId  uuid.UUID `json:"school_id"`
+	SchoolID  uuid.UUID `json:"school_id"`
 	Status    db.Status `json:"status"`
 	Name      string    `json:"name"`
 	CreatedAt time.Time `json:"created_at"`
@@ -20,8 +20,8 @@ type Grade struct {
 
 func (g Grade) ValidateGrade() error {
 	return validation.ValidateStruct(&g, validation.Field(&g.Name, validation.Required.Error("grade name required")),
-		validation.Field(&g.SchoolId, validation.By(func(value interface{}) error {
-			if g.SchoolId == uuid.Nil {
+		validation.Field(&g.SchoolID, validation.By(func(value interface{}) error {
+			if g.SchoolID == uuid.Nil {
 				return fmt.Errorf("school id should not be empty")
 			}
 			return nil

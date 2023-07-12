@@ -22,7 +22,7 @@ type user struct {
 	ContextTImeOut time.Duration
 }
 
-func Init(ctx context.Context, usermodule module.User, log logger.Logger, contextTimeOut time.Duration) rest.User {
+func Init(usermodule module.User, log logger.Logger, contextTimeOut time.Duration) rest.User {
 	return &user{
 		UserModule:     usermodule,
 		log:            log,

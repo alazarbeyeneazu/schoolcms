@@ -27,7 +27,7 @@ func Init(db persistencedb.PersistenceDB, log logger.Logger) storage.Grade {
 func (g *grade) CreateGrade(ctx context.Context, grd dto.Grade) (dto.Grade, error) {
 	gr, err := g.db.Queries.CreateGrade(ctx, db.CreateGradeParams{
 		Name:     grd.Name,
-		SchoolID: grd.SchoolId,
+		SchoolID: grd.SchoolID,
 		Status:   grd.Status,
 	})
 	if err != nil {
@@ -37,7 +37,7 @@ func (g *grade) CreateGrade(ctx context.Context, grd dto.Grade) (dto.Grade, erro
 	}
 	return dto.Grade{
 		ID:        gr.ID,
-		SchoolId:  gr.SchoolID,
+		SchoolID:  gr.SchoolID,
 		Status:    gr.Status,
 		Name:      gr.Name,
 		CreatedAt: gr.CreatedAt,

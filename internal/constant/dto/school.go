@@ -16,7 +16,7 @@ type School struct {
 	Name   string    `json:"name"`
 	Status db.Status `json:"status"`
 	Phone  string    `json:"phone"`
-	Log    string    `json:"logo"`
+	Logo   string    `json:"logo"`
 }
 
 func (s School) ValidateSchool() error {
@@ -35,17 +35,17 @@ func (s School) ValidateSchool() error {
 
 type StudentToSchool struct {
 	ID        uuid.UUID `json:"id"`
-	StudentId uuid.UUID `json:"student_id"`
-	SchoolId  uuid.UUID `json:"school_id"`
-	GradeId   uuid.UUID `json:"grade_id"`
+	StudentID uuid.UUID `json:"student_id"`
+	SchoolID  uuid.UUID `json:"school_id"`
+	GradeID   uuid.UUID `json:"grade_id"`
 	Status    db.Status `json:"status"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
 func (s StudentToSchool) ValidateStudentToSchool() error {
 	return validation.ValidateStruct(&s,
-		validation.Field(&s.StudentId, validation.By(utils.CheckForNullUUID("student id required"))),
-		validation.Field(&s.SchoolId, validation.By(utils.CheckForNullUUID("school id required"))),
-		validation.Field(&s.GradeId, validation.By(utils.CheckForNullUUID("grade id required"))),
+		validation.Field(&s.StudentID, validation.By(utils.CheckForNullUUID("student id required"))),
+		validation.Field(&s.SchoolID, validation.By(utils.CheckForNullUUID("school id required"))),
+		validation.Field(&s.GradeID, validation.By(utils.CheckForNullUUID("grade id required"))),
 	)
 }

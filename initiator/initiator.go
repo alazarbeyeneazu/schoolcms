@@ -62,7 +62,7 @@ func Initiate() {
 	log.Info(context.Background(), "module initialized")
 
 	log.Info(context.Background(), "initializing handler")
-	handler := InitHandler(context.Background(), module, log, viper.GetDuration("server.timeout"))
+	handler := InitHandler(module, log, viper.GetDuration("server.timeout"))
 	log.Info(context.Background(), "handler initialized")
 
 	log.Info(context.Background(), "initializing server")
@@ -77,8 +77,8 @@ func Initiate() {
 	log.Info(context.Background(), "server initialized")
 
 	log.Info(context.Background(), "initializing router")
-	state := InitState(log.Named("state"))
-	InitRouter(server.Group("/api/v1"), handler, module, log, state.AuthDomains)
+	state := InitState()
+	InitRouter(server.Group("/api/v1"), handler, log, state.AuthDomains)
 	log.Info(context.Background(), "router initialized")
 	srv := &http.Server{
 		Addr:              viper.GetString("server.host") + ":" + viper.GetString("server.port"),
@@ -114,7 +114,7 @@ func Initiate() {
 
 	if err != nil {
 		log.Fatal(context.Background(), fmt.Sprintf("error while shutting down server: %v", err))
-	} else {
-		log.Info(context.Background(), "server shutdown complete")
 	}
+	log.Info(context.Background(), "server shutdown complete")
+
 }

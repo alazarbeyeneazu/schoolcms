@@ -13,13 +13,13 @@ import (
 )
 
 type grade struct {
-	gradePersistant storage.Grade
+	gradepersistent storage.Grade
 	log             logger.Logger
 }
 
-func Init(ctx context.Context, gradePersistant storage.Grade, log logger.Logger) module.Grade {
+func Init(gradepersistent storage.Grade, log logger.Logger) module.Grade {
 	return &grade{
-		gradePersistant: gradePersistant,
+		gradepersistent: gradepersistent,
 		log:             log,
 	}
 }
@@ -31,5 +31,5 @@ func (g *grade) CreateGrade(ctx context.Context, grd dto.Grade) (dto.Grade, erro
 		return dto.Grade{}, err
 	}
 	grd.Status = db.StatusACTIVE
-	return g.gradePersistant.CreateGrade(ctx, grd)
+	return g.gradepersistent.CreateGrade(ctx, grd)
 }

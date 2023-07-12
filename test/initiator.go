@@ -153,7 +153,7 @@ func Initiate(path string) (Instance, func() error) {
 	log.Info(context.Background(), "module initialized")
 
 	log.Info(context.Background(), "initializing handler")
-	handler := initiator.InitHandler(context.Background(), module, log, viper.GetDuration("server.timeout"))
+	handler := initiator.InitHandler(module, log, viper.GetDuration("server.timeout"))
 	log.Info(context.Background(), "handler initialized")
 
 	log.Info(context.Background(), "initializing server")
@@ -166,8 +166,8 @@ func Initiate(path string) (Instance, func() error) {
 
 	log.Info(context.Background(), "initializing router")
 	v1 := server.Group("/v1")
-	state := initiator.InitState(log.Named("state"))
-	initiator.InitRouter(v1, handler, module, log, state.AuthDomains)
+	state := initiator.InitState()
+	initiator.InitRouter(v1, handler, log, state.AuthDomains)
 	log.Info(context.Background(), "router initialized")
 
 	return Instance{

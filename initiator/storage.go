@@ -22,10 +22,10 @@ type Persistence struct {
 
 func InitPersistence(db persistencedb.PersistenceDB, log logger.Logger) Persistence {
 	return Persistence{
-		User:    user.Init(db, log.Named("user persistant")),
-		School:  school.Init(db, log.Named("school persistant")),
-		Teacher: teacher.Init(db, log.Named("teacher persistant")),
-		Grade:   grade.Init(db, log.Named("grade persistant")),
-		Student: student.Init(db, log.Named("student persistant")),
+		User:    user.Init(db, log.Named("user persistent")),
+		School:  school.Init(db, log.Named("school persistent")),
+		Teacher: teacher.Init(db, log.Named("teacher persistent")),
+		Grade:   grade.Init(db, log.Named("grade persistent")),
+		Student: student.Init(db, log.Named("student persistent")),
 	}
 }
