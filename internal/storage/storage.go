@@ -26,3 +26,7 @@ type Grade interface {
 type Student interface {
 	CreateStudent(ctx context.Context, std dto.Student) (dto.Student, error)
 }
+
+type Family interface {
+	CreateFamily(ctx context.Context, fam dto.Family) (dto.Family, error)
+}
