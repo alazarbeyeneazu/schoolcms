@@ -28,7 +28,7 @@ func (s *school) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 	scl, err := s.db.CreateSchool(ctx, db.CreateSchoolParams{
 		Name:  sc.Name,
 		Phone: sc.Phone,
-		Logo:  sql.NullString{String: sc.Log, Valid: true},
+		Logo:  sql.NullString{String: sc.Logo, Valid: true},
 	})
 
 	if err != nil {
@@ -40,27 +40,27 @@ func (s *school) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 		ID:    scl.ID,
 		Name:  scl.Name,
 		Phone: scl.Phone,
-		Log:   scl.Logo.String,
+		Logo:  scl.Logo.String,
 	}, nil
 }
 
 func (s *school) AssignStudentToSchool(ctx context.Context, std dto.StudentToSchool) (dto.StudentToSchool, error) {
 	assignedStd, err := s.db.Queries.AssignStudent(ctx, db.AssignStudentParams{
-		StudentID: std.StudentId,
-		SchoolID:  std.SchoolId,
-		GradeID:   std.GradeId,
+		StudentID: std.StudentID,
+		SchoolID:  std.SchoolID,
+		GradeID:   std.GradeID,
 		Status:    std.Status,
 	})
 	if err != nil {
 		err = errors.ErrWriteError.Wrap(err, "error while assign student to school")
-		s.log.Error(ctx, "error while writting to database", zap.Error(err), zap.Any("student", std))
+		s.log.Error(ctx, "error while writing to database", zap.Error(err), zap.Any("student", std))
 		return dto.StudentToSchool{}, nil
 	}
 	return dto.StudentToSchool{
 		ID:        assignedStd.ID,
-		StudentId: assignedStd.StudentID,
-		SchoolId:  assignedStd.SchoolID,
-		GradeId:   assignedStd.GradeID,
+		StudentID: assignedStd.StudentID,
+		SchoolID:  assignedStd.SchoolID,
+		GradeID:   assignedStd.GradeID,
 		Status:    assignedStd.Status,
 		CreatedAt: assignedStd.CreatedAt,
 	}, nil

@@ -1,0 +1,46 @@
+run:
+  timeout: 5m
+output:
+  sort-results: true
+  format: junit-xml:lint_report.xml
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - gofmt
+    - misspell
+    - nestif
+    - nilerr
+#    - nlreturn
+    - nolintlint
+    - revive
+    - tagliatelle
+    - unparam
+#    - whitespace
+#    - wsl
+    - lll
+    - nilnil
+    - gosec
+    - predeclared
+    - prealloc
+    - reassign
+    - unparam
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+    exclude-functions:
+      - (*github.com/gin-gonic/gin.Context).Error
+  tagliatelle:
+    case:
+      use-field-name: true
+      rules:
+        json: snake
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

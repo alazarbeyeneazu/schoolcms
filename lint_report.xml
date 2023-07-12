@@ -1,0 +1,232 @@
+<testsuites>
+  <testsuite name="initiator/initiator.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="initiator/initiator.go:117:9">
+      <failure message="initiator/initiator.go:117:9: superfluous-else: if block ends with call to log.Fatal function, so drop this else and outdent its block" type="warning"><![CDATA[warning: superfluous-else: if block ends with call to log.Fatal function, so drop this else and outdent its block
+Category: revive
+File: initiator/initiator.go
+Line: 117
+Details: 	} else {
+		log.Info(context.Background(), "server shutdown complete")
+	}]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="initiator/module.go" tests="1" errors="0" failures="1">
+    <testcase name="misspell" classname="initiator/module.go:31:65">
+      <failure message="initiator/module.go:31:65: `persistent` is a misspelling of `persistent`" type=""><![CDATA[: `persistent` is a misspelling of `persistent`
+Category: misspell
+File: initiator/module.go
+Line: 31
+Details: 		Student: student.Init(persistence.Student, log.Named("student persistent")),]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="initiator/routing.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="initiator/routing.go:18:2">
+      <failure message="initiator/routing.go:18:2: unused-parameter: parameter &#39;module&#39; seems to be unused, consider removing or renaming it as _" type="warning"><![CDATA[warning: unused-parameter: parameter 'module' seems to be unused, consider removing or renaming it as _
+Category: revive
+File: initiator/routing.go
+Line: 18
+Details: 	module Module,]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="initiator/state.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="initiator/state.go:15:16">
+      <failure message="initiator/state.go:15:16: unused-parameter: parameter &#39;logger&#39; seems to be unused, consider removing or renaming it as _" type="warning"><![CDATA[warning: unused-parameter: parameter 'logger' seems to be unused, consider removing or renaming it as _
+Category: revive
+File: initiator/state.go
+Line: 15
+Details: func InitState(logger logger.Logger) State {]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="initiator/storage.go" tests="5" errors="0" failures="5">
+    <testcase name="misspell" classname="initiator/storage.go:25:42">
+      <failure message="initiator/storage.go:25:42: `persistent` is a misspelling of `persistent`" type=""><![CDATA[: `persistent` is a misspelling of `persistent`
+Category: misspell
+File: initiator/storage.go
+Line: 25
+Details: 		User:    user.Init(db, log.Named("user persistent")),]]></failure>
+    </testcase>
+    <testcase name="misspell" classname="initiator/storage.go:26:46">
+      <failure message="initiator/storage.go:26:46: `persistent` is a misspelling of `persistent`" type=""><![CDATA[: `persistent` is a misspelling of `persistent`
+Category: misspell
+File: initiator/storage.go
+Line: 26
+Details: 		School:  school.Init(db, log.Named("school persistent")),]]></failure>
+    </testcase>
+    <testcase name="misspell" classname="initiator/storage.go:27:48">
+      <failure message="initiator/storage.go:27:48: `persistent` is a misspelling of `persistent`" type=""><![CDATA[: `persistent` is a misspelling of `persistent`
+Category: misspell
+File: initiator/storage.go
+Line: 27
+Details: 		Teacher: teacher.Init(db, log.Named("teacher persistent")),]]></failure>
+    </testcase>
+    <testcase name="misspell" classname="initiator/storage.go:28:44">
+      <failure message="initiator/storage.go:28:44: `persistent` is a misspelling of `persistent`" type=""><![CDATA[: `persistent` is a misspelling of `persistent`
+Category: misspell
+File: initiator/storage.go
+Line: 28
+Details: 		Grade:   grade.Init(db, log.Named("grade persistent")),]]></failure>
+    </testcase>
+    <testcase name="misspell" classname="initiator/storage.go:29:48">
+      <failure message="initiator/storage.go:29:48: `persistent` is a misspelling of `persistent`" type=""><![CDATA[: `persistent` is a misspelling of `persistent`
+Category: misspell
+File: initiator/storage.go
+Line: 29
+Details: 		Student: student.Init(db, log.Named("student persistent")),]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/constant/dto/grade.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="internal/constant/dto/grade.go:14:2">
+      <failure message="internal/constant/dto/grade.go:14:2: var-naming: struct field SchoolId should be SchoolID" type="warning"><![CDATA[warning: var-naming: struct field SchoolId should be SchoolID
+Category: revive
+File: internal/constant/dto/grade.go
+Line: 14
+Details: 	SchoolId  uuid.UUID `json:"school_id"`]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/constant/dto/school.go" tests="4" errors="0" failures="4">
+    <testcase name="tagliatelle" classname="internal/constant/dto/school.go:19:19">
+      <failure message="internal/constant/dto/school.go:19:19: json(snake): got &#39;logo&#39; want &#39;log&#39;" type=""><![CDATA[: json(snake): got 'logo' want 'log'
+Category: tagliatelle
+File: internal/constant/dto/school.go
+Line: 19
+Details: 	Log    string    `json:"logo"`]]></failure>
+    </testcase>
+    <testcase name="revive" classname="internal/constant/dto/school.go:38:2">
+      <failure message="internal/constant/dto/school.go:38:2: var-naming: struct field StudentId should be StudentID" type="warning"><![CDATA[warning: var-naming: struct field StudentId should be StudentID
+Category: revive
+File: internal/constant/dto/school.go
+Line: 38
+Details: 	StudentId uuid.UUID `json:"student_id"`]]></failure>
+    </testcase>
+    <testcase name="revive" classname="internal/constant/dto/school.go:39:2">
+      <failure message="internal/constant/dto/school.go:39:2: var-naming: struct field SchoolId should be SchoolID" type="warning"><![CDATA[warning: var-naming: struct field SchoolId should be SchoolID
+Category: revive
+File: internal/constant/dto/school.go
+Line: 39
+Details: 	SchoolId  uuid.UUID `json:"school_id"`]]></failure>
+    </testcase>
+    <testcase name="revive" classname="internal/constant/dto/school.go:40:2">
+      <failure message="internal/constant/dto/school.go:40:2: var-naming: struct field GradeId should be GradeID" type="warning"><![CDATA[warning: var-naming: struct field GradeId should be GradeID
+Category: revive
+File: internal/constant/dto/school.go
+Line: 40
+Details: 	GradeId   uuid.UUID `json:"grade_id"`]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/constant/dto/student.go" tests="2" errors="0" failures="2">
+    <testcase name="revive" classname="internal/constant/dto/student.go:14:2">
+      <failure message="internal/constant/dto/student.go:14:2: var-naming: struct field UserId should be UserID" type="warning"><![CDATA[warning: var-naming: struct field UserId should be UserID
+Category: revive
+File: internal/constant/dto/student.go
+Line: 14
+Details: 	UserId   uuid.UUID `json:"user_id"`]]></failure>
+    </testcase>
+    <testcase name="tagliatelle" classname="internal/constant/dto/student.go:16:21">
+      <failure message="internal/constant/dto/student.go:16:21: json(snake): got &#39;created_at&#39; want &#39;creatd_at&#39;" type=""><![CDATA[: json(snake): got 'created_at' want 'creatd_at'
+Category: tagliatelle
+File: internal/constant/dto/student.go
+Line: 16
+Details: 	CreatdAt time.Time `json:"created_at"`]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/constant/dto/teacher.go" tests="3" errors="0" failures="3">
+    <testcase name="revive" classname="internal/constant/dto/teacher.go:13:2">
+      <failure message="internal/constant/dto/teacher.go:13:2: var-naming: struct field UserId should be UserID" type="warning"><![CDATA[warning: var-naming: struct field UserId should be UserID
+Category: revive
+File: internal/constant/dto/teacher.go
+Line: 13
+Details: 	UserId uuid.UUID `json:"user_id"`]]></failure>
+    </testcase>
+    <testcase name="revive" classname="internal/constant/dto/teacher.go:32:2">
+      <failure message="internal/constant/dto/teacher.go:32:2: var-naming: struct field TeacherId should be TeacherID" type="warning"><![CDATA[warning: var-naming: struct field TeacherId should be TeacherID
+Category: revive
+File: internal/constant/dto/teacher.go
+Line: 32
+Details: 	TeacherId uuid.UUID `json:"teacherId"`]]></failure>
+    </testcase>
+    <testcase name="revive" classname="internal/constant/dto/teacher.go:33:2">
+      <failure message="internal/constant/dto/teacher.go:33:2: var-naming: struct field SchoolId should be SchoolID" type="warning"><![CDATA[warning: var-naming: struct field SchoolId should be SchoolID
+Category: revive
+File: internal/constant/dto/teacher.go
+Line: 33
+Details: 	SchoolId  uuid.UUID `json:"schoolId"`]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/constant/dto/user.go" tests="3" errors="0" failures="3">
+    <testcase name="tagliatelle" classname="internal/constant/dto/user.go:15:23">
+      <failure message="internal/constant/dto/user.go:15:23: json(snake): got &#39;firstName&#39; want &#39;first_name&#39;" type=""><![CDATA[: json(snake): got 'firstName' want 'first_name'
+Category: tagliatelle
+File: internal/constant/dto/user.go
+Line: 15
+Details: 	FirstName  string    `json:"firstName"`]]></failure>
+    </testcase>
+    <testcase name="tagliatelle" classname="internal/constant/dto/user.go:16:23">
+      <failure message="internal/constant/dto/user.go:16:23: json(snake): got &#39;middleName&#39; want &#39;middle_name&#39;" type=""><![CDATA[: json(snake): got 'middleName' want 'middle_name'
+Category: tagliatelle
+File: internal/constant/dto/user.go
+Line: 16
+Details: 	MiddleName string    `json:"middleName"`]]></failure>
+    </testcase>
+    <testcase name="tagliatelle" classname="internal/constant/dto/user.go:17:23">
+      <failure message="internal/constant/dto/user.go:17:23: json(snake): got &#39;lastName&#39; want &#39;last_name&#39;" type=""><![CDATA[: json(snake): got 'lastName' want 'last_name'
+Category: tagliatelle
+File: internal/constant/dto/user.go
+Line: 17
+Details: 	LastName   string    `json:"lastName"`]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/handler/rest/grade/grade.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="internal/handler/rest/grade/grade.go:25:11">
+      <failure message="internal/handler/rest/grade/grade.go:25:11: unused-parameter: parameter &#39;ctx&#39; seems to be unused, consider removing or renaming it as _" type="warning"><![CDATA[warning: unused-parameter: parameter 'ctx' seems to be unused, consider removing or renaming it as _
+Category: revive
+File: internal/handler/rest/grade/grade.go
+Line: 25
+Details: func Init(ctx context.Context, gradeModule module.Grade, timeout time.Duration, log logger.Logger) rest.Grade {]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/handler/rest/school/school.go" tests="1" errors="0" failures="1">
+    <testcase name="lll" classname="internal/handler/rest/school/school.go:25">
+      <failure message="internal/handler/rest/school/school.go:25: line is 121 characters" type=""><![CDATA[: line is 121 characters
+Category: lll
+File: internal/handler/rest/school/school.go
+Line: 25
+Details: func Init(ctx context.Context, schoolModule module.School, log logger.Logger, contextTimeout time.Duration) rest.School {]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/handler/rest/teacher/teacher.go" tests="1" errors="0" failures="1">
+    <testcase name="lll" classname="internal/handler/rest/teacher/teacher.go:25">
+      <failure message="internal/handler/rest/teacher/teacher.go:25: line is 124 characters" type=""><![CDATA[: line is 124 characters
+Category: lll
+File: internal/handler/rest/teacher/teacher.go
+Line: 25
+Details: func Init(ctx context.Context, teacherModule module.Teacher, log logger.Logger, contextTimeOut time.Duration) rest.Teacher {]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/handler/rest/user/user.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="internal/handler/rest/user/user.go:25:11">
+      <failure message="internal/handler/rest/user/user.go:25:11: unused-parameter: parameter &#39;ctx&#39; seems to be unused, consider removing or renaming it as _" type="warning"><![CDATA[warning: unused-parameter: parameter 'ctx' seems to be unused, consider removing or renaming it as _
+Category: revive
+File: internal/handler/rest/user/user.go
+Line: 25
+Details: func Init(ctx context.Context, usermodule module.User, log logger.Logger, contextTimeOut time.Duration) rest.User {]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/module/grade/grade.go" tests="1" errors="0" failures="1">
+    <testcase name="revive" classname="internal/module/grade/grade.go:20:11">
+      <failure message="internal/module/grade/grade.go:20:11: unused-parameter: parameter &#39;ctx&#39; seems to be unused, consider removing or renaming it as _" type="warning"><![CDATA[warning: unused-parameter: parameter 'ctx' seems to be unused, consider removing or renaming it as _
+Category: revive
+File: internal/module/grade/grade.go
+Line: 20
+Details: func Init(ctx context.Context, gradepersistent storage.Grade, log logger.Logger) module.Grade {]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="internal/storage/school/school.go" tests="1" errors="0" failures="1">
+    <testcase name="misspell" classname="internal/storage/school/school.go:56:33">
+      <failure message="internal/storage/school/school.go:56:33: `writting` is a misspelling of `writing`" type=""><![CDATA[: `writting` is a misspelling of `writing`
+Category: misspell
+File: internal/storage/school/school.go
+Line: 56
+Details: 		s.log.Error(ctx, "error while writting to database", zap.Error(err), zap.Any("student", std))]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

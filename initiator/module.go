@@ -1,7 +1,6 @@
 package initiator
 
 import (
-	"context"
 	"schoolcms/internal/module"
 	"schoolcms/internal/module/grade"
 	"schoolcms/internal/module/school"
@@ -27,7 +26,7 @@ func InitModule(persistence Persistence,
 		User:    user.Init(log.Named("user module"), persistence.User),
 		School:  school.Init(persistence.School, log.Named("school module")),
 		Teacher: teacher.Init(log.Named("teacher module"), persistence.Teacher),
-		Grade:   grade.Init(context.Background(), persistence.Grade, log.Named("grade module")),
-		Student: student.Init(persistence.Student, log.Named("student persistant")),
+		Grade:   grade.Init(persistence.Grade, log.Named("grade module")),
+		Student: student.Init(persistence.Student, log.Named("student persistent")),
 	}
 }

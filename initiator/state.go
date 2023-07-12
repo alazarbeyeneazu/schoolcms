@@ -3,7 +3,6 @@ package initiator
 import (
 	"schoolcms/internal/constant"
 	"schoolcms/internal/constant/state"
-	"schoolcms/platform/logger"
 
 	"github.com/spf13/viper"
 )
@@ -12,7 +11,7 @@ type State struct {
 	AuthDomains state.AuthDomains
 }
 
-func InitState(logger logger.Logger) State {
+func InitState() State {
 	authDomains := state.AuthDomains{
 		Corporate: state.Domain{
 			ID:   viper.GetString("service.authorization.domain.corporate"),

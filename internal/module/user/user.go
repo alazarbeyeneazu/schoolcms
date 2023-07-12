@@ -15,13 +15,13 @@ import (
 
 type user struct {
 	log            logger.Logger
-	userpersistant storage.User
+	userpersistent storage.User
 }
 
-func Init(log logger.Logger, usrpersistant storage.User) module.User {
+func Init(log logger.Logger, usrpersistent storage.User) module.User {
 	return &user{
 		log:            log,
-		userpersistant: usrpersistant,
+		userpersistent: usrpersistent,
 	}
 }
 func (u *user) CreateUser(ctx context.Context, ur dto.User) (dto.User, error) {
@@ -31,5 +31,5 @@ func (u *user) CreateUser(ctx context.Context, ur dto.User) (dto.User, error) {
 		return dto.User{}, err
 	}
 	ur.Status = db.StatusACTIVE
-	return u.userpersistant.CreateUser(ctx, ur)
+	return u.userpersistent.CreateUser(ctx, ur)
 }

@@ -26,7 +26,7 @@ func Init(db persistencedb.PersistenceDB, log logger.Logger) storage.Teacher {
 
 func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teacher, error) {
 	teacher, err := t.db.Queries.CreateTechers(ctx, db.CreateTechersParams{
-		UserID: tc.UserId,
+		UserID: tc.UserID,
 		Title:  tc.Title,
 		Status: db.StatusACTIVE,
 	})
@@ -38,7 +38,7 @@ func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teache
 
 	return dto.Teacher{
 		ID:     teacher.ID,
-		UserId: teacher.UserID,
+		UserID: teacher.UserID,
 		Title:  teacher.Title,
 		Status: teacher.Status,
 	}, nil
@@ -46,8 +46,8 @@ func (t *teacher) CreateTeacher(ctx context.Context, tc dto.Teacher) (dto.Teache
 
 func (t *teacher) AssignTeacherToSchool(ctx context.Context, tToS dto.TeacherToSchool) (dto.TeacherToSchool, error) {
 	assignedTeacher, err := t.db.Queries.AssignTeachersToSchool(ctx, db.AssignTeachersToSchoolParams{
-		SchoolID:  tToS.SchoolId,
-		TeacherID: tToS.TeacherId,
+		SchoolID:  tToS.SchoolID,
+		TeacherID: tToS.TeacherID,
 		Subject:   tToS.Subject,
 		Status:    tToS.Status,
 	})
@@ -60,8 +60,8 @@ func (t *teacher) AssignTeacherToSchool(ctx context.Context, tToS dto.TeacherToS
 	}
 	return dto.TeacherToSchool{
 		ID:        assignedTeacher.ID,
-		TeacherId: assignedTeacher.TeacherID,
-		SchoolId:  assignedTeacher.TeacherID,
+		TeacherID: assignedTeacher.TeacherID,
+		SchoolID:  assignedTeacher.TeacherID,
 		Subject:   assignedTeacher.Subject,
 		Status:    assignedTeacher.Status,
 	}, nil

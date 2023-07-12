@@ -22,7 +22,7 @@ type teacher struct {
 	log            logger.Logger
 }
 
-func Init(ctx context.Context, teacherModule module.Teacher, log logger.Logger, contextTimeOut time.Duration) rest.Teacher {
+func Init(teacherModule module.Teacher, log logger.Logger, contextTimeOut time.Duration) rest.Teacher {
 	return &teacher{
 		TeacherModule:  teacherModule,
 		ContextTimeOut: contextTimeOut,

@@ -25,7 +25,7 @@ func Init(db persistencedb.PersistenceDB, log logger.Logger) storage.Student {
 }
 func (s *student) CreateStudent(ctx context.Context, std dto.Student) (dto.Student, error) {
 	student, err := s.db.Queries.CreateStudent(ctx, db.CreateStudentParams{
-		UserID: std.UserId,
+		UserID: std.UserID,
 		Status: std.Status,
 	})
 	if err != nil {
@@ -34,9 +34,9 @@ func (s *student) CreateStudent(ctx context.Context, std dto.Student) (dto.Stude
 		return dto.Student{}, err
 	}
 	return dto.Student{
-		ID:       student.ID,
-		UserId:   student.UserID,
-		Status:   student.Status,
-		CreatdAt: student.CreatedAt,
+		ID:        student.ID,
+		UserID:    student.UserID,
+		Status:    student.Status,
+		CreatedAt: student.CreatedAt,
 	}, nil
 }
