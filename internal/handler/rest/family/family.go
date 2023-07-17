@@ -21,10 +21,11 @@ type family struct {
 	contextTImeOut time.Duration
 }
 
-func Init(log logger.Logger, familyModule module.Family) rest.Family {
+func Init(log logger.Logger, familyModule module.Family, contextTimeOut time.Duration) rest.Family {
 	return &family{
-		log:          log,
-		familyModule: familyModule,
+		log:            log,
+		familyModule:   familyModule,
+		contextTImeOut: contextTimeOut,
 	}
 }
 func (f *family) CreateFamily(c *gin.Context) {

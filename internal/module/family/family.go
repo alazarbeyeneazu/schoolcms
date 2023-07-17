@@ -4,6 +4,7 @@ import (
 	"context"
 	"schoolcms/internal/constant/dto"
 	"schoolcms/internal/constant/errors"
+	"schoolcms/internal/constant/model/db"
 	"schoolcms/internal/module"
 	"schoolcms/internal/storage"
 	"schoolcms/platform/logger"
@@ -28,6 +29,7 @@ func (f *family) CreateFamily(ctx context.Context, fam dto.Family) (dto.Family, 
 		f.log.Error(ctx, "error while validating family", zap.Error(err), zap.Any("family", fam))
 		return dto.Family{}, err
 	}
+	fam.Status = db.StatusACTIVE
 	return f.familyPersistant.CreateFamily(ctx, fam)
 
 }
