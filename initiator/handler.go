@@ -2,6 +2,7 @@ package initiator
 
 import (
 	"schoolcms/internal/handler/rest"
+	"schoolcms/internal/handler/rest/family"
 	"schoolcms/internal/handler/rest/grade"
 	"schoolcms/internal/handler/rest/school"
 	"schoolcms/internal/handler/rest/student"
@@ -17,6 +18,7 @@ type Handler struct {
 	Teacher rest.Teacher
 	Grade   rest.Grade
 	Student rest.Student
+	Family  rest.Family
 }
 
 func InitHandler(module Module, log logger.Logger, timeout time.Duration) Handler {
@@ -26,5 +28,6 @@ func InitHandler(module Module, log logger.Logger, timeout time.Duration) Handle
 		Teacher: teacher.Init(module.Teacher, log.Named("teacher handler"), timeout),
 		Grade:   grade.Init(module.Grade, timeout, log.Named("grade handler")),
 		Student: student.Init(module.Student, log.Named("student handler"), timeout),
+		Family:  family.Init(log.Named("family handler"), module.Family),
 	}
 }

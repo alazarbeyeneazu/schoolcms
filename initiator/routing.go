@@ -2,6 +2,7 @@ package initiator
 
 import (
 	"schoolcms/internal/constant/state"
+	"schoolcms/internal/glue/family"
 	"schoolcms/internal/glue/grade"
 	"schoolcms/internal/glue/school"
 	"schoolcms/internal/glue/student"
@@ -23,4 +24,5 @@ func InitRouter(
 	teacher.InitRoute(group, handler.Teacher, log.Named("school route"), authDomains)
 	grade.InitRoute(group, handler.Grade, log.Named("grade route"), authDomains)
 	student.InitRoute(group, handler.Student, log.Named("student route"), authDomains)
+	family.InitRoute(group, handler.Family, log.Named("family route"), authDomains)
 }
