@@ -45,3 +45,26 @@ func (f *family) CreateFamily(ctx context.Context, fam dto.Family) (dto.Family, 
 		DeletedAt:  fam.DeletedAt,
 	}, err
 }
+func (f *family) AssignFamilyToStudent(ctx context.Context, fam dto.FamilyToStudent) (dto.FamilyToStudent, error) {
+	assignFam, err := f.db.Queries.AssignFamilyToStudent(ctx, db.AssignFamilyToStudentParams{
+		StudentID:  fam.StudentID,
+		FamilyID:   fam.FamilyID,
+		FamilyType: fam.FamilyType,
+		Status:     fam.Status,
+	})
+	if err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while assigning family to student")
+		f.log.Error(ctx, "error while assigning family to student", zap.Error(err), zap.Any("family", fam))
+		return dto.FamilyToStudent{}, err
+	}
+	return dto.FamilyToStudent{
+		ID:         assignFam.ID,
+		StudentID:  assignFam.StudentID,
+		FamilyID:   assignFam.FamilyID,
+		Status:     assignFam.Status,
+		FamilyType: assignFam.FamilyType,
+		CreatedAt:  assignFam.CreatedAt,
+		UpdatedAt:  assignFam.UpdatedAt.Time,
+		DeletedAt:  assignFam.DeletedAt.Time,
+	}, nil
+}

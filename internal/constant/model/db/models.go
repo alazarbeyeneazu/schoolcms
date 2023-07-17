@@ -66,6 +66,17 @@ type Family struct {
 	DeletedAt  sql.NullTime
 }
 
+type FamilyToStudent struct {
+	ID         uuid.UUID
+	StudentID  uuid.UUID
+	FamilyID   uuid.UUID
+	FamilyType string
+	Status     Status
+	CreatedAt  time.Time
+	UpdatedAt  sql.NullTime
+	DeletedAt  sql.NullTime
+}
+
 type Grade struct {
 	ID        uuid.UUID
 	Name      string

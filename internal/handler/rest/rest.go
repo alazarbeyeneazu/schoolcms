@@ -28,4 +28,5 @@ type Student interface {
 
 type Family interface {
 	CreateFamily(C *gin.Context)
+	AssignFamilyToStudent(c *gin.Context)
 }

@@ -11,6 +11,40 @@ import (
 	"github.com/google/uuid"
 )
 
+const assignFamilyToStudent = `-- name: AssignFamilyToStudent :one
+INSERT INTO family_to_students(student_id,family_id,family_type,status)
+VALUES ($1,$2,$3,$4)
+RETURNING id, student_id, family_id, family_type, status, created_at, updated_at, deleted_at
+`
+
+type AssignFamilyToStudentParams struct {
+	StudentID  uuid.UUID
+	FamilyID   uuid.UUID
+	FamilyType string
+	Status     Status
+}
+
+func (q *Queries) AssignFamilyToStudent(ctx context.Context, arg AssignFamilyToStudentParams) (FamilyToStudent, error) {
+	row := q.db.QueryRow(ctx, assignFamilyToStudent,
+		arg.StudentID,
+		arg.FamilyID,
+		arg.FamilyType,
+		arg.Status,
+	)
+	var i FamilyToStudent
+	err := row.Scan(
+		&i.ID,
+		&i.StudentID,
+		&i.FamilyID,
+		&i.FamilyType,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return i, err
+}
+
 const createFamilies = `-- name: CreateFamilies :one
 INSERT INTO families(user_id,family_type,status)
 VALUES ($1,$2,$3)
