@@ -21,6 +21,15 @@ func InitRoute(group *gin.RouterGroup, familyHandler rest.Family, log logger.Log
 				authDomain.Corporate,
 				authDomain.System,
 			},
+		}, {
+			Method:      http.MethodPost,
+			Path:        "/family/students",
+			Handler:     familyHandler.AssignFamilyToStudent,
+			Middlewares: []gin.HandlerFunc{},
+			Domain: []state.Domain{
+				authDomain.Corporate,
+				authDomain.System,
+			},
 		},
 	}
 	routing.RegisterRoute(group, familyRoutes, log, authDomain)
