@@ -28,6 +28,6 @@ func InitHandler(module Module, log logger.Logger, timeout time.Duration) Handle
 		Teacher: teacher.Init(module.Teacher, log.Named("teacher handler"), timeout),
 		Grade:   grade.Init(module.Grade, timeout, log.Named("grade handler")),
 		Student: student.Init(module.Student, log.Named("student handler"), timeout),
-		Family:  family.Init(log.Named("family handler"), module.Family),
+		Family:  family.Init(log.Named("family handler"), module.Family, timeout),
 	}
 }
