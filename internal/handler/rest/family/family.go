@@ -46,3 +46,22 @@ func (f *family) CreateFamily(c *gin.Context) {
 	}
 	response.SendSuccessResponse(c, http.StatusCreated, retFam, nil)
 }
+
+func (f *family) AssignFamilyToStudent(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, f.contextTImeOut)
+	defer cancel()
+
+	var fam dto.FamilyToStudent
+	if err := c.ShouldBind(&fam); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while binding user input to Family Student")
+		f.log.Error(ctx, "error while binding user input ", zap.Error(err))
+		_ = c.Error(err)
+		return
+	}
+	retFam, err := f.familyModule.AssignFamilyToStudent(ctx, fam)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	response.SendSuccessResponse(c, http.StatusCreated, retFam, nil)
+}
