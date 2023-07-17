@@ -2,6 +2,7 @@ package initiator
 
 import (
 	"schoolcms/internal/module"
+	"schoolcms/internal/module/family"
 	"schoolcms/internal/module/grade"
 	"schoolcms/internal/module/school"
 	"schoolcms/internal/module/student"
@@ -17,6 +18,7 @@ type Module struct {
 	Teacher module.Teacher
 	Grade   module.Grade
 	Student module.Student
+	Family  module.Family
 }
 
 func InitModule(persistence Persistence,
@@ -28,5 +30,6 @@ func InitModule(persistence Persistence,
 		Teacher: teacher.Init(log.Named("teacher module"), persistence.Teacher),
 		Grade:   grade.Init(persistence.Grade, log.Named("grade module")),
 		Student: student.Init(persistence.Student, log.Named("student persistent")),
+		Family:  family.Init(persistence.Family, log.Named("family module")),
 	}
 }

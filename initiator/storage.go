@@ -4,6 +4,7 @@ import (
 	persistencedb "schoolcms/internal/constant/persistenceDB"
 
 	"schoolcms/internal/storage"
+	"schoolcms/internal/storage/family"
 	"schoolcms/internal/storage/grade"
 	"schoolcms/internal/storage/school"
 	"schoolcms/internal/storage/student"
@@ -18,6 +19,7 @@ type Persistence struct {
 	Teacher storage.Teacher
 	Grade   storage.Grade
 	Student storage.Student
+	Family  storage.Family
 }
 
 func InitPersistence(db persistencedb.PersistenceDB, log logger.Logger) Persistence {
@@ -27,5 +29,6 @@ func InitPersistence(db persistencedb.PersistenceDB, log logger.Logger) Persiste
 		Teacher: teacher.Init(db, log.Named("teacher persistent")),
 		Grade:   grade.Init(db, log.Named("grade persistent")),
 		Student: student.Init(db, log.Named("student persistent")),
+		Family:  family.Init(db, log.Named("family persistent")),
 	}
 }

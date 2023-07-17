@@ -25,3 +25,7 @@ type Grade interface {
 type Student interface {
 	CreateStudent(c *gin.Context)
 }
+
+type Family interface {
+	CreateFamily(C *gin.Context)
+}
