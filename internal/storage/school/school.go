@@ -70,7 +70,7 @@ func (s *school) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter)
 	schools := []dto.School{}
 	retschools, err := s.db.Queries.GetAllSchools(ctx, db.GetAllSchoolsParams{
 		Limit:  filter.Limit,
-		Offset: filter.Offset,
+		Offset: filter.Page,
 	})
 	if err != nil {
 		err = errors.ErrReadError.Wrap(err, "error while reading schools")
