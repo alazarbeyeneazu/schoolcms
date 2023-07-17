@@ -12,11 +12,18 @@ import (
 )
 
 type School struct {
-	ID     uuid.UUID `json:"id"`
-	Name   string    `json:"name"`
-	Status db.Status `json:"status"`
-	Phone  string    `json:"phone"`
-	Logo   string    `json:"logo"`
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	Status    db.Status `json:"status"`
+	Phone     string    `json:"phone"`
+	Logo      string    `json:"logo"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at"`
+}
+type GetSchoolsFilter struct {
+	Limit  int32 `json:"limit" form:"limit"`
+	Offset int32 `json:"offset" form:"offset"`
 }
 
 func (s School) ValidateSchool() error {

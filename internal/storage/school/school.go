@@ -65,3 +65,28 @@ func (s *school) AssignStudentToSchool(ctx context.Context, std dto.StudentToSch
 		CreatedAt: assignedStd.CreatedAt,
 	}, nil
 }
+
+func (s *school) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter) ([]dto.School, error) {
+	schools := []dto.School{}
+	retschools, err := s.db.Queries.GetAllSchools(ctx, db.GetAllSchoolsParams{
+		Limit:  filter.Limit,
+		Offset: filter.Offset,
+	})
+	if err != nil {
+		err = errors.ErrReadError.Wrap(err, "error while reading schools")
+		s.log.Error(ctx, "error while reading schools", zap.Error(err), zap.Any("filter", filter))
+		return []dto.School{}, err
+	}
+	for _, sc := range retschools {
+		schools = append(schools, dto.School{
+			ID:        sc.ID,
+			Name:      sc.Name,
+			Status:    sc.Status.Status,
+			Phone:     sc.Phone,
+			Logo:      sc.Logo.String,
+			UpdatedAt: sc.CreatedAt.Time,
+			CreatedAt: sc.CreatedAt.Time,
+		})
+	}
+	return schools, err
+}
