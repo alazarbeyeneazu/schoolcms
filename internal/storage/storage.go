@@ -29,5 +29,5 @@ type Student interface {
 
 type Family interface {
 	CreateFamily(ctx context.Context, fam dto.Family) (dto.Family, error)
-	AssignFamilyToStudent(ctx context.Context, fam dto.Family) (dto.Family, error)
+	AssignFamilyToStudent(ctx context.Context, fam dto.FamilyToStudent) (dto.FamilyToStudent, error)
 }

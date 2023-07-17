@@ -66,5 +66,5 @@ func (f *family) AssignFamilyToStudent(ctx context.Context, fam dto.FamilyToStud
 		CreatedAt:  assignFam.CreatedAt,
 		UpdatedAt:  assignFam.UpdatedAt.Time,
 		DeletedAt:  assignFam.DeletedAt.Time,
-	}, err
+	}, nil
 }

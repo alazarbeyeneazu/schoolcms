@@ -33,3 +33,15 @@ func (f *family) CreateFamily(ctx context.Context, fam dto.Family) (dto.Family, 
 	return f.familyPersistant.CreateFamily(ctx, fam)
 
 }
+
+func (f *family) AssignFamilyToStudent(ctx context.Context, fam dto.FamilyToStudent) (dto.FamilyToStudent, error) {
+	if err := fam.ValidateFamilyToStudent(); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating family to student")
+		f.log.Error(ctx, "error while validating family to student ", zap.Error(err), zap.Any("family", fam))
+		return dto.FamilyToStudent{}, err
+	}
+	fam.Status = db.StatusACTIVE
+
+	return f.familyPersistant.AssignFamilyToStudent(ctx, fam)
+
+}
