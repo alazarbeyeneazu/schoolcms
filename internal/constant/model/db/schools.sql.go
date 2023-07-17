@@ -72,3 +72,42 @@ func (q *Queries) CreateSchool(ctx context.Context, arg CreateSchoolParams) (Sch
 	)
 	return i, err
 }
+
+const getAllSchools = `-- name: GetAllSchools :many
+
+select id, name, logo, phone, status, created_at, updated_at, deleted_at from schools where deleted_at is null order by $1 ASC  limit $2 offset $3
+`
+
+type GetAllSchoolsParams struct {
+	Limit  int32
+	Offset int32
+}
+
+func (q *Queries) GetAllSchools(ctx context.Context, arg GetAllSchoolsParams) ([]School, error) {
+	rows, err := q.db.Query(ctx, getAllSchools, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []School
+	for rows.Next() {
+		var i School
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Logo,
+			&i.Phone,
+			&i.Status,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.DeletedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
