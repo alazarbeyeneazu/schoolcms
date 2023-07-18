@@ -130,6 +130,7 @@ func (s *school) GetSchoolByPhone(c *gin.Context) {
 	}
 
 	resp, err := s.schoolModule.GetSchoolByPhone(ctx, phone)
+
 	if err != nil {
 		_ = c.Error(err)
 		return
