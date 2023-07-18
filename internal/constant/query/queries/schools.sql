@@ -10,3 +10,6 @@ RETURNING *;
 -- name: GetAllSchools :many
 
 select * from schools where deleted_at is null order by created_at ASC  limit $1 offset $2  ;  
+
+-- name: GetSchoolById :one 
+SELECT * FROM schools where id = $1;

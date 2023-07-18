@@ -10,6 +10,7 @@ import (
 	"schoolcms/internal/storage"
 	"schoolcms/platform/logger"
 
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -89,4 +90,23 @@ func (s *school) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter)
 		})
 	}
 	return schools, err
+}
+func (s *school) GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, error) {
+
+	retSchool, err := s.db.Queries.GetSchoolById(ctx, id)
+	if err != nil {
+		err = errors.ErrReadError.Wrap(err, "error while reading schools")
+		s.log.Error(ctx, "error while reading school", zap.Error(err), zap.Any("school id ", id))
+		return dto.School{}, err
+	}
+	return dto.School{
+		ID:        retSchool.ID,
+		Name:      retSchool.Name,
+		Status:    retSchool.Status.Status,
+		Phone:     retSchool.Phone,
+		Logo:      retSchool.Logo.String,
+		CreatedAt: retSchool.CreatedAt.Time,
+		UpdatedAt: retSchool.UpdatedAt.Time,
+		DeletedAt: retSchool.DeletedAt.Time,
+	}, err
 }

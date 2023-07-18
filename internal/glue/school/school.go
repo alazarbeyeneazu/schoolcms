@@ -42,6 +42,15 @@ func InitRoute(
 				authDomains.System,
 				authDomains.Corporate,
 			},
+		}, {
+			Method:      http.MethodGet,
+			Path:        "schools/:id",
+			Handler:     school.GetSchoolByID,
+			Middlewares: []gin.HandlerFunc{},
+			Domain: []state.Domain{
+				authDomains.System,
+				authDomains.Corporate,
+			},
 		},
 	}
 	routing.RegisterRoute(group, schoolRoutes, log, authDomains)
