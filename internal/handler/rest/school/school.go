@@ -116,3 +116,25 @@ func (s *school) GetSchoolByID(c *gin.Context) {
 	response.SendSuccessResponse(c, http.StatusOK, resp, nil)
 
 }
+
+func (s *school) GetSchoolByPhone(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, s.contextTimeout)
+	defer cancel()
+	phone, ok := c.Params.Get("phone")
+	if !ok {
+		err := fmt.Errorf("empty parameter")
+		err = errors.ErrValidationError.Wrap(err, "error while reading school phone")
+		s.log.Error(ctx, "error while reading params")
+		_ = c.Error(err)
+		return
+	}
+
+	resp, err := s.schoolModule.GetSchoolByPhone(ctx, phone)
+
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	response.SendSuccessResponse(c, http.StatusOK, resp, nil)
+
+}

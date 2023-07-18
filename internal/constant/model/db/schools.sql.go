@@ -131,3 +131,23 @@ func (q *Queries) GetSchoolById(ctx context.Context, id uuid.UUID) (School, erro
 	)
 	return i, err
 }
+
+const getSchoolByPhone = `-- name: GetSchoolByPhone :one
+SELECT id, name, logo, phone, status, created_at, updated_at, deleted_at FROM schools where phone = $1
+`
+
+func (q *Queries) GetSchoolByPhone(ctx context.Context, phone string) (School, error) {
+	row := q.db.QueryRow(ctx, getSchoolByPhone, phone)
+	var i School
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Logo,
+		&i.Phone,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return i, err
+}

@@ -2,6 +2,7 @@ package school
 
 import (
 	"context"
+	"fmt"
 	"schoolcms/internal/constant/dto"
 	"schoolcms/internal/constant/errors"
 	"schoolcms/internal/module"
@@ -9,6 +10,7 @@ import (
 	"schoolcms/platform/logger"
 	"schoolcms/platform/utils"
 
+	"github.com/dongri/phonenumber"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
@@ -32,7 +34,9 @@ func (s *School) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 		s.log.Error(ctx, "school validation failed ", zap.Error(err), zap.Any("school", sc))
 		return dto.School{}, err
 	}
-
+	if len(sc.Phone) == 10 {
+		sc.Phone = string("+251" + sc.Phone[1:])
+	}
 	return s.schoolPersistance.CreateSchool(ctx, sc)
 }
 
@@ -66,4 +70,23 @@ func (s *School) GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, e
 	}
 
 	return s.schoolPersistance.GetSchoolByID(ctx, id)
+}
+
+func (s *School) GetSchoolByPhone(ctx context.Context, phone string) (dto.School, error) {
+	if err := validation.Validate(phone, validation.Required.Error("phone required"),
+		validation.By(func(value interface{}) error {
+			phone := phonenumber.Parse(phone, "ET")
+			if phone == "" {
+				return fmt.Errorf("invalid phone number")
+			}
+			return nil
+		})); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating school phone")
+		s.log.Error(ctx, "error while validating school phone ", zap.Error(err), zap.Any("school phone ", phone))
+		return dto.School{}, err
+	}
+	if len(phone) == 10 {
+		phone = string("+251" + phone[1:])
+	}
+	return s.schoolPersistance.GetSchoolByPhone(ctx, phone)
 }

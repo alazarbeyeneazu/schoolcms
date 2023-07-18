@@ -13,6 +13,7 @@ type School interface {
 	AssignStudentToSchool(c *gin.Context)
 	GetAllSchools(c *gin.Context)
 	GetSchoolByID(c *gin.Context)
+	GetSchoolByPhone(c *gin.Context)
 }
 
 type Teacher interface {
