@@ -16,3 +16,6 @@ SELECT * FROM schools where id = $1;
 
 -- name: GetSchoolByPhone :one 
 SELECT * FROM schools where phone = $1;
+
+-- name: UpdateSchoolStatus :exec 
+update schools set status = $1 where id = $2; 
