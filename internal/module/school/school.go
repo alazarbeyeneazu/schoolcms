@@ -7,7 +7,10 @@ import (
 	"schoolcms/internal/module"
 	"schoolcms/internal/storage"
 	"schoolcms/platform/logger"
+	"schoolcms/platform/utils"
 
+	validation "github.com/go-ozzo/ozzo-validation/v4"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -53,4 +56,14 @@ func (s *School) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter)
 		filter.Page = (filter.Page - 1) * filter.PerPage
 	}
 	return s.schoolPersistance.GetAllSchools(ctx, filter)
+}
+
+func (s *School) GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, error) {
+	if err := validation.Validate(id, validation.By(utils.CheckForNullUUID("school id required"))); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating school id")
+		s.log.Error(ctx, "error while validating school id ", zap.Error(err), zap.Any("school id ", id))
+		return dto.School{}, err
+	}
+
+	return s.schoolPersistance.GetSchoolByID(ctx, id)
 }
