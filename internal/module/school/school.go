@@ -102,3 +102,13 @@ func (s *School) UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) 
 	}
 	return s.schoolPersistance.UpdateSchoolStatus(ctx, stat)
 }
+
+func (s *School) DeleteSchool(ctx context.Context, sc uuid.UUID) error {
+	if err := validation.Validate(&sc, validation.By(utils.CheckForNullUUID("school id required"))); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating school id ")
+		s.log.Error(ctx, "error while validating school id", zap.Error(err), zap.Any("school id", sc))
+		return err
+	}
+
+	return s.schoolPersistance.DeleteSchool(ctx, sc)
+}
