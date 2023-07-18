@@ -73,6 +73,15 @@ func (q *Queries) CreateSchool(ctx context.Context, arg CreateSchoolParams) (Sch
 	return i, err
 }
 
+const deleteSchool = `-- name: DeleteSchool :exec
+update schools set deleted_at = now() where id = $1
+`
+
+func (q *Queries) DeleteSchool(ctx context.Context, id uuid.UUID) error {
+	_, err := q.db.Exec(ctx, deleteSchool, id)
+	return err
+}
+
 const getAllSchools = `-- name: GetAllSchools :many
 
 select id, name, logo, phone, status, created_at, updated_at, deleted_at from schools where deleted_at is null order by created_at ASC  limit $1 offset $2
