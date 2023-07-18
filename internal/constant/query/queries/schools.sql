@@ -9,4 +9,4 @@ RETURNING *;
 
 -- name: GetAllSchools :many
 
-select * from schools where deleted_at is null order by $1 ASC  limit $2 offset $3  ;  
+select * from schools where deleted_at is null order by created_at ASC  limit $1 offset $2  ;  

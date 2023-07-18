@@ -75,7 +75,7 @@ func (q *Queries) CreateSchool(ctx context.Context, arg CreateSchoolParams) (Sch
 
 const getAllSchools = `-- name: GetAllSchools :many
 
-select id, name, logo, phone, status, created_at, updated_at, deleted_at from schools where deleted_at is null order by $1 ASC  limit $2 offset $3
+select id, name, logo, phone, status, created_at, updated_at, deleted_at from schools where deleted_at is null order by created_at ASC  limit $1 offset $2
 `
 
 type GetAllSchoolsParams struct {

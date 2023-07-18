@@ -69,7 +69,7 @@ func (s *school) AssignStudentToSchool(ctx context.Context, std dto.StudentToSch
 func (s *school) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter) ([]dto.School, error) {
 	schools := []dto.School{}
 	retschools, err := s.db.Queries.GetAllSchools(ctx, db.GetAllSchoolsParams{
-		Limit:  filter.Limit,
+		Limit:  filter.PerPage,
 		Offset: filter.Page,
 	})
 	if err != nil {

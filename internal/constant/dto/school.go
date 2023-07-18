@@ -22,14 +22,14 @@ type School struct {
 	DeletedAt time.Time `json:"deleted_at"`
 }
 type GetSchoolsFilter struct {
-	Limit int32 `json:"limit" form:"limit"`
-	Page  int32 `json:"offset" form:"offset"`
+	PerPage int32 `json:"per_page" form:"per_page"`
+	Page    int32 `json:"page" form:"page"`
 }
 
-func (gs *GetSchoolsFilter) Validate() error {
+func (gs GetSchoolsFilter) Validate() error {
 	return validation.ValidateStruct(&gs,
 		validation.Field(&gs.Page, validation.Min(0).Error("offset should be greater or equal to zero")),
-		validation.Field(&gs.Limit, validation.Min(1)),
+		validation.Field(&gs.PerPage, validation.Min(1)),
 	)
 }
 

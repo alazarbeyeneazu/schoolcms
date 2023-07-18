@@ -48,6 +48,9 @@ func (s *School) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter)
 		s.log.Error(ctx, "error while validating user ", zap.Error(err), zap.Any("filter", filter))
 		return []dto.School{}, err
 	}
-	filter.Page = filter.Page * filter.Limit
+
+	if filter.Page != 0 {
+		filter.Page = (filter.Page - 1) * filter.PerPage
+	}
 	return s.schoolPersistance.GetAllSchools(ctx, filter)
 }

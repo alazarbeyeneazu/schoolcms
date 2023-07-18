@@ -73,17 +73,18 @@ func (s *school) GetAllSchools(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, s.contextTimeout)
 	defer cancel()
 	var sToS dto.GetSchoolsFilter
-	if err := c.ShouldBind(&sToS); err != nil {
+	if err := c.ShouldBindQuery(&sToS); err != nil {
 		err = errors.ErrValidationError.Wrap(err, "error while binding user input to dto.GetSchoolsFilter")
 		s.log.Error(ctx, "error while binding user input to dto.GetSchoolsFilter", zap.Error(err))
 		_ = c.Error(err)
 		return
 	}
+
 	retVal, err := s.schoolModule.GetAllSchools(ctx, sToS)
 	if err != nil {
 		_ = c.Error(err)
 		return
 	}
 
-	response.SendSuccessResponse(c, http.StatusCreated, retVal, nil)
+	response.SendSuccessResponse(c, http.StatusOK, retVal, nil)
 }
