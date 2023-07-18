@@ -151,3 +151,17 @@ func (q *Queries) GetSchoolByPhone(ctx context.Context, phone string) (School, e
 	)
 	return i, err
 }
+
+const updateSchoolStatus = `-- name: UpdateSchoolStatus :exec
+update schools set status = $1 where id = $2
+`
+
+type UpdateSchoolStatusParams struct {
+	Status NullStatus
+	ID     uuid.UUID
+}
+
+func (q *Queries) UpdateSchoolStatus(ctx context.Context, arg UpdateSchoolStatusParams) error {
+	_, err := q.db.Exec(ctx, updateSchoolStatus, arg.Status, arg.ID)
+	return err
+}

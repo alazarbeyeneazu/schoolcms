@@ -130,3 +130,9 @@ func (s *school) GetSchoolByPhone(ctx context.Context, phone string) (dto.School
 		DeletedAt: retSchool.DeletedAt.Time,
 	}, err
 }
+
+func (s *school) UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) error {
+	return s.db.Queries.UpdateSchoolStatus(ctx, db.UpdateSchoolStatusParams{
+		Status: db.NullStatus{Status: stat.Status, Valid: true},
+		ID:     stat.SchoolID})
+}

@@ -138,3 +138,23 @@ func (s *school) GetSchoolByPhone(c *gin.Context) {
 	response.SendSuccessResponse(c, http.StatusOK, resp, nil)
 
 }
+
+func (s *school) UpdateSchoolStatus(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, s.contextTimeout)
+	defer cancel()
+	var sStat dto.SchoolStatus
+	if err := c.ShouldBind(&sStat); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while binding user input to dto.SchoolStatus")
+		s.log.Error(ctx, "error while binding user input to dto.SchoolStatus", zap.Error(err))
+		_ = c.Error(err)
+		return
+	}
+
+	err := s.schoolModule.UpdateSchoolStatus(ctx, sStat)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+
+	response.SendSuccessResponse(c, http.StatusOK, nil, nil)
+}

@@ -17,6 +17,7 @@ type School interface {
 	GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter) ([]dto.School, error)
 	GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, error)
 	GetSchoolByPhone(ctx context.Context, phone string) (dto.School, error)
+	UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) error
 }
 
 type Teacher interface {
