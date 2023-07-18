@@ -32,7 +32,9 @@ func (s *School) CreateSchool(ctx context.Context, sc dto.School) (dto.School, e
 		s.log.Error(ctx, "school validation failed ", zap.Error(err), zap.Any("school", sc))
 		return dto.School{}, err
 	}
-
+	if len(sc.Phone) == 10 {
+		sc.Phone = string("+251" + sc.Phone[1:])
+	}
 	return s.schoolPersistance.CreateSchool(ctx, sc)
 }
 
