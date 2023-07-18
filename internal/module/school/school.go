@@ -3,7 +3,6 @@ package school
 import (
 	"context"
 	"fmt"
-	"log"
 	"schoolcms/internal/constant/dto"
 	"schoolcms/internal/constant/errors"
 	"schoolcms/internal/module"
@@ -95,7 +94,7 @@ func (s *School) GetSchoolByPhone(ctx context.Context, phone string) (dto.School
 func (s *School) UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) error {
 
 	if err := stat.Validate(); err != nil {
-		log.Fatal(err)
+
 		err = errors.ErrValidationError.Wrap(err, "error while validating school")
 
 		s.log.Error(ctx, "error while validating school", zap.Error(err), zap.Any("school", stat))
