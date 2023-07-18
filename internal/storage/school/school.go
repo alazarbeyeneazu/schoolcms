@@ -132,7 +132,21 @@ func (s *school) GetSchoolByPhone(ctx context.Context, phone string) (dto.School
 }
 
 func (s *school) UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) error {
-	return s.db.Queries.UpdateSchoolStatus(ctx, db.UpdateSchoolStatusParams{
+	if err := s.db.Queries.UpdateSchoolStatus(ctx, db.UpdateSchoolStatusParams{
 		Status: db.NullStatus{Status: stat.Status, Valid: true},
-		ID:     stat.SchoolID})
+		ID:     stat.SchoolID}); err != nil {
+		err = errors.ErrWriteError.Wrap(err, "error while updating school status")
+		s.log.Error(ctx, "error while updating school status ", zap.Error(err), zap.Any("school", stat))
+		return err
+	}
+	return nil
+}
+
+func (s *school) DeleteSchool(ctx context.Context, stat uuid.UUID) error {
+	if err := s.db.Queries.DeleteSchool(ctx, stat); err != nil {
+		err = errors.ErrWriteError.Wrap(err, "error while deleting school ")
+		s.log.Error(ctx, "error while deleting school  ", zap.Error(err), zap.Any("school", stat))
+		return err
+	}
+	return nil
 }
