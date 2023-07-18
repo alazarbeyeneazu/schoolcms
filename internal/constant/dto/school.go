@@ -63,3 +63,8 @@ func (s StudentToSchool) ValidateStudentToSchool() error {
 		validation.Field(&s.GradeID, validation.By(utils.CheckForNullUUID("grade id required"))),
 	)
 }
+
+type SchoolStatus struct {
+	Status   db.Status `json:"status"`
+	SchoolID uuid.UUID `json:"school_id"`
+}
