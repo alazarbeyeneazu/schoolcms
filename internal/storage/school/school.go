@@ -110,3 +110,23 @@ func (s *school) GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, e
 		DeletedAt: retSchool.DeletedAt.Time,
 	}, err
 }
+
+func (s *school) GetSchoolByPhone(ctx context.Context, phone string) (dto.School, error) {
+
+	retSchool, err := s.db.Queries.GetSchoolByPhone(ctx, phone)
+	if err != nil {
+		err = errors.ErrReadError.Wrap(err, "error while reading schools")
+		s.log.Error(ctx, "error while reading school", zap.Error(err), zap.Any("school phone ", phone))
+		return dto.School{}, err
+	}
+	return dto.School{
+		ID:        retSchool.ID,
+		Name:      retSchool.Name,
+		Status:    retSchool.Status.Status,
+		Phone:     retSchool.Phone,
+		Logo:      retSchool.Logo.String,
+		CreatedAt: retSchool.CreatedAt.Time,
+		UpdatedAt: retSchool.UpdatedAt.Time,
+		DeletedAt: retSchool.DeletedAt.Time,
+	}, err
+}

@@ -16,6 +16,7 @@ type School interface {
 	AssignStudentToSchool(ctx context.Context, std dto.StudentToSchool) (dto.StudentToSchool, error)
 	GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter) ([]dto.School, error)
 	GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, error)
+	GetSchoolByPhone(ctx context.Context, phone string) (dto.School, error)
 }
 
 type Teacher interface {
