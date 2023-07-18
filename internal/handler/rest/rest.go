@@ -12,6 +12,7 @@ type School interface {
 	CreateSchool(c *gin.Context)
 	AssignStudentToSchool(c *gin.Context)
 	GetAllSchools(c *gin.Context)
+	GetSchoolByID(c *gin.Context)
 }
 
 type Teacher interface {
