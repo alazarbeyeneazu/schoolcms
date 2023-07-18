@@ -19,19 +19,24 @@ var Error = []ErrorType{
 	{
 		StatusCode: http.StatusBadRequest,
 		ErrorType:  ErrValidationError,
+	}, {
+		StatusCode: http.StatusNotFound,
+		ErrorType:  ErrResourceNotFound,
 	},
 }
 
 // list of error namespaces
 var (
-	databaseError   = errorx.NewNamespace("database error").ApplyModifiers(errorx.TypeModifierOmitStackTrace)
-	validationError = errorx.NewNamespace("validation error ").ApplyModifiers(errorx.TypeModifierOmitStackTrace)
+	databaseError    = errorx.NewNamespace("database error").ApplyModifiers(errorx.TypeModifierOmitStackTrace)
+	validationError  = errorx.NewNamespace("validation error ").ApplyModifiers(errorx.TypeModifierOmitStackTrace)
+	resourceNotFound = errorx.NewNamespace("not found").ApplyModifiers(errorx.TypeModifierOmitStackTrace)
 )
 
 // list of errors types in all of the above namespaces
 
 var (
-	ErrWriteError      = errorx.NewType(databaseError, "unable to create")
-	ErrReadError       = errorx.NewType(databaseError, "unable to read")
-	ErrValidationError = errorx.NewType(validationError, "validation error")
+	ErrWriteError       = errorx.NewType(databaseError, "unable to create")
+	ErrReadError        = errorx.NewType(databaseError, "unable to read")
+	ErrValidationError  = errorx.NewType(validationError, "validation error")
+	ErrResourceNotFound = errorx.NewType(resourceNotFound, "resource not found")
 )

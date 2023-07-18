@@ -122,7 +122,7 @@ func (q *Queries) GetAllSchools(ctx context.Context, arg GetAllSchoolsParams) ([
 }
 
 const getSchoolById = `-- name: GetSchoolById :one
-SELECT id, name, logo, phone, status, created_at, updated_at, deleted_at FROM schools where id = $1
+SELECT id, name, logo, phone, status, created_at, updated_at, deleted_at FROM schools where id = $1 and deleted_at is null
 `
 
 func (q *Queries) GetSchoolById(ctx context.Context, id uuid.UUID) (School, error) {
@@ -142,7 +142,7 @@ func (q *Queries) GetSchoolById(ctx context.Context, id uuid.UUID) (School, erro
 }
 
 const getSchoolByPhone = `-- name: GetSchoolByPhone :one
-SELECT id, name, logo, phone, status, created_at, updated_at, deleted_at FROM schools where phone = $1
+SELECT id, name, logo, phone, status, created_at, updated_at, deleted_at FROM schools where phone = $1 and deleted_at is null
 `
 
 func (q *Queries) GetSchoolByPhone(ctx context.Context, phone string) (School, error) {
@@ -162,7 +162,7 @@ func (q *Queries) GetSchoolByPhone(ctx context.Context, phone string) (School, e
 }
 
 const updateSchoolStatus = `-- name: UpdateSchoolStatus :exec
-update schools set status = $1 where id = $2
+update schools set status = $1 where id = $2 and deleted_at is null
 `
 
 type UpdateSchoolStatusParams struct {

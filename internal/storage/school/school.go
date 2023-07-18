@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"schoolcms/internal/constant/dto"
 	"schoolcms/internal/constant/errors"
+	"schoolcms/internal/constant/errors/sqlcerr"
 	"schoolcms/internal/constant/model/db"
 	persistencedb "schoolcms/internal/constant/persistenceDB"
 	"schoolcms/internal/storage"
@@ -95,10 +96,16 @@ func (s *school) GetSchoolByID(ctx context.Context, id uuid.UUID) (dto.School, e
 
 	retSchool, err := s.db.Queries.GetSchoolById(ctx, id)
 	if err != nil {
+		if sqlcerr.Is(err, sqlcerr.ErrNoRows) {
+			err := errors.ErrResourceNotFound.Wrap(err, "school not found")
+			s.log.Warn(ctx, "school was not found!", zap.Error(err), zap.String("school id", id.String()))
+			return dto.School{}, err
+		}
 		err = errors.ErrReadError.Wrap(err, "error while reading schools")
 		s.log.Error(ctx, "error while reading school", zap.Error(err), zap.Any("school id ", id))
 		return dto.School{}, err
 	}
+
 	return dto.School{
 		ID:        retSchool.ID,
 		Name:      retSchool.Name,
@@ -115,6 +122,11 @@ func (s *school) GetSchoolByPhone(ctx context.Context, phone string) (dto.School
 
 	retSchool, err := s.db.Queries.GetSchoolByPhone(ctx, phone)
 	if err != nil {
+		if sqlcerr.Is(err, sqlcerr.ErrNoRows) {
+			err := errors.ErrResourceNotFound.Wrap(err, "school not found")
+			s.log.Warn(ctx, "school was not found!", zap.Error(err), zap.String("school id", phone))
+			return dto.School{}, err
+		}
 		err = errors.ErrReadError.Wrap(err, "error while reading schools")
 		s.log.Error(ctx, "error while reading school", zap.Error(err), zap.Any("school phone ", phone))
 		return dto.School{}, err
