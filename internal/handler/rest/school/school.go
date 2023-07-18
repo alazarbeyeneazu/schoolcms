@@ -158,3 +158,31 @@ func (s *school) UpdateSchoolStatus(c *gin.Context) {
 
 	response.SendSuccessResponse(c, http.StatusOK, nil, nil)
 }
+
+func (s *school) DeleteSchool(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, s.contextTimeout)
+	defer cancel()
+	id, ok := c.Params.Get("id")
+	if !ok {
+		err := fmt.Errorf("empty parameter")
+		err = errors.ErrValidationError.Wrap(err, "error while reading school id")
+		s.log.Error(ctx, "error while reading params")
+		_ = c.Error(err)
+		return
+	}
+	idu, err := uuid.Parse(id)
+	if err != nil {
+		err := fmt.Errorf("error while converting id to uuid")
+		err = errors.ErrValidationError.Wrap(err, "error while converting id to uuid")
+		s.log.Error(ctx, "error while converting id to uuid")
+		_ = c.Error(err)
+		return
+	}
+	err = s.schoolModule.DeleteSchool(ctx, idu)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	response.SendSuccessResponse(c, http.StatusOK, nil, nil)
+
+}
