@@ -90,3 +90,12 @@ func (s *School) GetSchoolByPhone(ctx context.Context, phone string) (dto.School
 	}
 	return s.schoolPersistance.GetSchoolByPhone(ctx, phone)
 }
+
+func (s *School) UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) error {
+	if err := stat.Validate(); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating school")
+		s.log.Error(ctx, "error while validating school", zap.Error(err), zap.Any("school", stat))
+		return err
+	}
+	return s.UpdateSchoolStatus(ctx, stat)
+}

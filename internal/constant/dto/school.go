@@ -68,3 +68,10 @@ type SchoolStatus struct {
 	Status   db.Status `json:"status"`
 	SchoolID uuid.UUID `json:"school_id"`
 }
+
+func (s SchoolStatus) Validate() error {
+	return validation.ValidateStruct(&s,
+		validation.Field(&s.Status, validation.Required.Error("status required")),
+		validation.Field(&s, validation.By(utils.CheckForNullUUIDString("error while validating school id"))),
+	)
+}
