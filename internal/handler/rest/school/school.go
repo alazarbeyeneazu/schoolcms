@@ -149,6 +149,7 @@ func (s *school) UpdateSchoolStatus(c *gin.Context) {
 		_ = c.Error(err)
 		return
 	}
+
 	err := s.schoolModule.UpdateSchoolStatus(ctx, sStat)
 	if err != nil {
 		_ = c.Error(err)

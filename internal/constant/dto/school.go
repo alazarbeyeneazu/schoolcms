@@ -71,7 +71,8 @@ type SchoolStatus struct {
 
 func (s SchoolStatus) Validate() error {
 	return validation.ValidateStruct(&s,
-		validation.Field(&s.Status, validation.Required.Error("status required")),
-		validation.Field(&s, validation.By(utils.CheckForNullUUIDString("error while validating school id"))),
+		validation.Field(&s.Status,
+			validation.NotIn("ACTIVE", "PENDING", "DIACTIVATED").Error("invalid status")),
+		validation.Field(&s.SchoolID, validation.By(utils.CheckForNullUUID("school_id required"))),
 	)
 }
