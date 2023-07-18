@@ -12,10 +12,13 @@ RETURNING *;
 select * from schools where deleted_at is null order by created_at ASC  limit $1 offset $2  ;  
 
 -- name: GetSchoolById :one 
-SELECT * FROM schools where id = $1;
+SELECT * FROM schools where id = $1 and deleted_at is null;
 
 -- name: GetSchoolByPhone :one 
-SELECT * FROM schools where phone = $1;
+SELECT * FROM schools where phone = $1 and deleted_at is null;
 
 -- name: UpdateSchoolStatus :exec 
-update schools set status = $1 where id = $2; 
+update schools set status = $1 where id = $2 and deleted_at is null; 
+
+-- name: DeleteSchool :exec 
+update schools set deleted_at = now() where id = $1; 
