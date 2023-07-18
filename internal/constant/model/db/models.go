@@ -93,9 +93,9 @@ type School struct {
 	Logo      sql.NullString
 	Phone     string
 	Status    NullStatus
-	CreatedAt sql.NullString
-	UpdatedAt sql.NullString
-	DeletedAt sql.NullString
+	CreatedAt sql.NullTime
+	UpdatedAt sql.NullTime
+	DeletedAt sql.NullTime
 }
 
 type SchoolStudent struct {

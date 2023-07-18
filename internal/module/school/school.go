@@ -42,3 +42,15 @@ func (s *School) AssignStudentToSchool(ctx context.Context, sc dto.StudentToScho
 
 	return s.schoolPersistance.AssignStudentToSchool(ctx, sc)
 }
+func (s *School) GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter) ([]dto.School, error) {
+	if err := filter.Validate(); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validation user input")
+		s.log.Error(ctx, "error while validating user ", zap.Error(err), zap.Any("filter", filter))
+		return []dto.School{}, err
+	}
+
+	if filter.Page != 0 {
+		filter.Page = (filter.Page - 1) * filter.PerPage
+	}
+	return s.schoolPersistance.GetAllSchools(ctx, filter)
+}

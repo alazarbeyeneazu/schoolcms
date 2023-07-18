@@ -4,8 +4,8 @@ CREATE TABLE schools (
     logo VARCHAR,
     phone VARCHAR NOT NULL UNIQUE,
     status status DEFAULT 'PENDING',
-    created_at VARCHAR,
-    updated_at VARCHAR,
-    deleted_at VARCHAR,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     PRIMARY KEY (id)
 );

@@ -6,3 +6,7 @@ RETURNING *;
 INSERT INTO school_students(student_id,school_id,grade_id,status)
 VALUES ($1,$2,$3,$4)
 RETURNING *;
+
+-- name: GetAllSchools :many
+
+select * from schools where deleted_at is null order by created_at ASC  limit $1 offset $2  ;  

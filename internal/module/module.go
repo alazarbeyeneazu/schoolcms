@@ -12,6 +12,7 @@ type User interface {
 type School interface {
 	CreateSchool(ctx context.Context, sc dto.School) (dto.School, error)
 	AssignStudentToSchool(ctx context.Context, sc dto.StudentToSchool) (dto.StudentToSchool, error)
+	GetAllSchools(ctx context.Context, filter dto.GetSchoolsFilter) ([]dto.School, error)
 }
 
 type Teacher interface {

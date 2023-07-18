@@ -3,16 +3,20 @@ package dto
 import (
 	"fmt"
 	"schoolcms/internal/constant/model/db"
+	"time"
 
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/google/uuid"
 )
 
 type Teacher struct {
-	ID     uuid.UUID `json:"id"`
-	UserID uuid.UUID `json:"user_id"`
-	Title  string    `json:"title"`
-	Status db.Status `json:"status"`
+	ID        uuid.UUID `json:"id"`
+	UserID    uuid.UUID `json:"user_id"`
+	Title     string    `json:"title"`
+	Status    db.Status `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at"`
 }
 
 func (ts Teacher) ValidteTeachers() error {
@@ -33,6 +37,9 @@ type TeacherToSchool struct {
 	SchoolID  uuid.UUID `json:"school_id"`
 	Subject   string    `json:"subject"`
 	Status    db.Status `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at"`
 }
 
 func (t TeacherToSchool) VlidateAssignTeacher() error {

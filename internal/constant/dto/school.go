@@ -12,11 +12,25 @@ import (
 )
 
 type School struct {
-	ID     uuid.UUID `json:"id"`
-	Name   string    `json:"name"`
-	Status db.Status `json:"status"`
-	Phone  string    `json:"phone"`
-	Logo   string    `json:"logo"`
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	Status    db.Status `json:"status"`
+	Phone     string    `json:"phone"`
+	Logo      string    `json:"logo"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at"`
+}
+type GetSchoolsFilter struct {
+	PerPage int32 `json:"per_page" form:"per_page"`
+	Page    int32 `json:"page" form:"page"`
+}
+
+func (gs GetSchoolsFilter) Validate() error {
+	return validation.ValidateStruct(&gs,
+		validation.Field(&gs.Page, validation.Min(0).Error("offset should be greater or equal to zero")),
+		validation.Field(&gs.PerPage, validation.Min(1)),
+	)
 }
 
 func (s School) ValidateSchool() error {

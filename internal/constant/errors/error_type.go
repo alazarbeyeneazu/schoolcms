@@ -32,5 +32,6 @@ var (
 
 var (
 	ErrWriteError      = errorx.NewType(databaseError, "unable to create")
+	ErrReadError       = errorx.NewType(databaseError, "unable to read")
 	ErrValidationError = errorx.NewType(validationError, "validation error")
 )

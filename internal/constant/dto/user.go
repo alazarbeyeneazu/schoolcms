@@ -3,6 +3,7 @@ package dto
 import (
 	"fmt"
 	"schoolcms/internal/constant/model/db"
+	"time"
 
 	"github.com/dongri/phonenumber"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
@@ -19,6 +20,9 @@ type User struct {
 	Gender     string    `json:"gender"`
 	Profile    string    `json:"profile"`
 	Status     db.Status `json:"status"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
+	DeletedAt  time.Time `json:"deleted_at"`
 }
 
 func (u User) ValidateUser() error {
