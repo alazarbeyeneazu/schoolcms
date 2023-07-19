@@ -22,3 +22,8 @@ update schools set status = $1 where id = $2 and deleted_at is null;
 
 -- name: DeleteSchool :exec 
 update schools set deleted_at = now() where id = $1; 
+
+-- name: UpdateSchoolInformations :one
+
+UPDATE schools set name = $1 , logo = $2 , phone = $3 where phone = $4
+RETURNING *;

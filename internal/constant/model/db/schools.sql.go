@@ -161,6 +161,40 @@ func (q *Queries) GetSchoolByPhone(ctx context.Context, phone string) (School, e
 	return i, err
 }
 
+const updateSchoolInformations = `-- name: UpdateSchoolInformations :one
+
+UPDATE schools set name = $1 , logo = $2 , phone = $3 where phone = $4
+RETURNING id, name, logo, phone, status, created_at, updated_at, deleted_at
+`
+
+type UpdateSchoolInformationsParams struct {
+	Name    string
+	Logo    sql.NullString
+	Phone   string
+	Phone_2 string
+}
+
+func (q *Queries) UpdateSchoolInformations(ctx context.Context, arg UpdateSchoolInformationsParams) (School, error) {
+	row := q.db.QueryRow(ctx, updateSchoolInformations,
+		arg.Name,
+		arg.Logo,
+		arg.Phone,
+		arg.Phone_2,
+	)
+	var i School
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Logo,
+		&i.Phone,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return i, err
+}
+
 const updateSchoolStatus = `-- name: UpdateSchoolStatus :exec
 update schools set status = $1 where id = $2 and deleted_at is null
 `
