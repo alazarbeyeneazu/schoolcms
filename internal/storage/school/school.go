@@ -162,3 +162,24 @@ func (s *school) DeleteSchool(ctx context.Context, stat uuid.UUID) error {
 	}
 	return nil
 }
+
+func (s *school) UpdateSchoolInformation(ctx context.Context, sc dto.School, oldPhone string) (dto.School, error) {
+	scl, err := s.db.Queries.UpdateSchoolInformations(ctx, db.UpdateSchoolInformationsParams{
+		Name:    sc.Name,
+		Logo:    sql.NullString{String: sc.Logo, Valid: true},
+		Phone:   sc.Phone,
+		Phone_2: oldPhone,
+	})
+
+	if err != nil {
+		err := errors.ErrWriteError.Wrap(err, "unable to update school")
+		s.log.Error(ctx, "unable to update school ", zap.Error(err), zap.Any("school", sc), zap.Any("phone", oldPhone))
+		return dto.School{}, err
+	}
+	return dto.School{
+		ID:    scl.ID,
+		Name:  scl.Name,
+		Phone: scl.Phone,
+		Logo:  scl.Logo.String,
+	}, nil
+}
