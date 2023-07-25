@@ -16,6 +16,7 @@ type School interface {
 	GetSchoolByPhone(c *gin.Context)
 	UpdateSchoolStatus(c *gin.Context)
 	DeleteSchool(c *gin.Context)
+	UpdateSchoolInformation(c *gin.Context)
 }
 
 type Teacher interface {

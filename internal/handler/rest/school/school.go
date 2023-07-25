@@ -186,3 +186,22 @@ func (s *school) DeleteSchool(c *gin.Context) {
 	response.SendSuccessResponse(c, http.StatusOK, nil, nil)
 
 }
+func (s *school) UpdateSchoolInformation(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, s.contextTimeout)
+	defer cancel()
+	var schoolvar dto.School
+	if err := c.ShouldBind(&schoolvar); err != nil {
+		err := fmt.Errorf("error while binding school")
+		err = errors.ErrValidationError.Wrap(err, "error while binding school")
+		s.log.Error(ctx, "error while binding school")
+		_ = c.Error(err)
+		return
+	}
+	schoolv, err := s.schoolModule.UpdateSchoolInformation(ctx, schoolvar)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	response.SendSuccessResponse(c, http.StatusOK, schoolv, nil)
+
+}
