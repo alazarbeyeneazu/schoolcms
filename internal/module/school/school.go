@@ -107,3 +107,22 @@ func (s *School) DeleteSchool(ctx context.Context, sc uuid.UUID) error {
 
 	return s.schoolPersistance.DeleteSchool(ctx, sc)
 }
+
+func (s *School) UpdateSchoolInformation(ctx context.Context, sc dto.School) (dto.School, error) {
+	if err := sc.ValidateSchool(); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating school to update")
+		s.log.Error(ctx, "error while validating school", zap.Error(err), zap.Any("school", sc))
+		return dto.School{}, err
+	}
+	if err := validation.ValidateStruct(&sc, validation.Field(&sc.ID, validation.By(utils.CheckForNullUUID("school id required")))); err != nil {
+		err = errors.ErrValidationError.Wrap(err, "error while validating school id to update")
+		s.log.Error(ctx, "error while validating school", zap.Error(err), zap.Any("school id", sc.ID))
+		return dto.School{}, err
+	}
+	retSchool, err := s.schoolPersistance.GetSchoolByID(ctx, sc.ID)
+	if err != nil {
+		return dto.School{}, err
+	}
+
+	return s.schoolPersistance.UpdateSchoolInformation(ctx, sc, retSchool.Phone)
+}

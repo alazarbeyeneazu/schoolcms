@@ -19,6 +19,7 @@ type School interface {
 	GetSchoolByPhone(ctx context.Context, phone string) (dto.School, error)
 	UpdateSchoolStatus(ctx context.Context, stat dto.SchoolStatus) error
 	DeleteSchool(ctx context.Context, sc uuid.UUID) error
+	UpdateSchoolInformation(ctx context.Context, sc dto.School) (dto.School, error)
 }
 
 type Teacher interface {
